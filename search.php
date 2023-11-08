@@ -46,8 +46,10 @@
           <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
             <form action="search.php" method="GET"> 
               <?php
-                ini_set('display_errors', '0'); //error 메시지 숨기기
-                $basicText = $_GET['res_name'] or $basicText = '식당 이름을 입력하세요.';
+                $basicText = '식당 이름을 입력하세요.';
+                if(isset($_GET['res_name'])){
+                  $basicText = $_GET['res_name'];
+                }
                 echo '<input type="text" name="res_name" placeholder="'.$basicText.'" size="60" class="justify-start flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100flex-grow-0 flex-shrink-0 text-lg text-left text-[#9e9e9e] bg-neutral-100">';
               ?>
               <button type="submit" class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg" style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%)">
@@ -116,7 +118,11 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                          echo '<label><input type="checkbox" name="category'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                          $isChecked = '';
+                          if(isset($_POST['category']) and in_array($itemID, $_POST['category'])){
+                            $isChecked = 'checked="checked"';
+                          }
+                          echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'"'.$isChecked.'class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                             }
                     } else {
                     echo "쿼리실행안됨".mysqli_error($link);
@@ -149,8 +155,12 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                            echo '<label><input type="checkbox" name="allergy'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
-                            }
+                          $isChecked = '';
+                          if(isset($_POST['allergy']) and in_array($itemID, $_POST['allergy'])){
+                            $isChecked = 'checked="checked"';
+                          }
+                          echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                        }
                     } else {
                     echo "쿼리실행안됨".mysqli_error($link);
                     }
@@ -169,9 +179,9 @@
         <!--정렬-->
         <select name="sort" class="flex justify-start items-center w-[150px] absolute left-[728px] top-[282px] px-4 py-2.5 rounded-[10px] bg-[#fefefe]" style="box-shadow: 0px 4px 20px 0 rgba(255, 214, 0, 0.3)">
           <option selected disabled hidden class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">정렬 기준</option>
-          <option value="sort_recent" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>
-          <option value="sort_rate_high" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>
-          <option value="sort_rate_low" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>
+          <option value="recent" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>
+          <option value="rate_high" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>
+          <option value="rate_low" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>
         </select>
 
         <!--필터 및 정렬 적용 버튼-->
@@ -208,7 +218,6 @@
                 </div>
               </div>
             </a>
-
 
           </div>
         </div>
