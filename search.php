@@ -99,8 +99,7 @@
       
       <!--form 태그-->
       <?php
-        echo '<form action="search.php?res_name='.$_GET["res_name"].'" method="POST">';
-        echo '<input type="hidden" name="res_name" value="'.$_GET["res_name"].'">'
+        echo '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
       ?>
         <!--필터: 카테고리-->
         <div class="dropdown">
