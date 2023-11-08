@@ -27,10 +27,10 @@
                 <div class="Login-input-box">
                     <div class="form__group field__id">
                         <input type="text" class="form__field__id" placeholder="user_id" name="user_id" id='user_id' required />
-                        <label for="ID" class="form__label__id">Email</label>
+                        <label for="ID" class="form__label__id">ID</label>
                     </div>
                     <div class="form__group field__pw">
-                        <input type="text" class="form__field__pw" placeholder="user_pwd" name = "user_pwd" id = "user_pwd" required />
+                        <input type="text" class="form__field__pw" placeholder="user_pw" name = "user_pw" id = 'user_pw' required />
                         <label for="Password" class="form__label__pw">Password</label>
                     </div>
                 </div>

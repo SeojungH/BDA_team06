@@ -1,3 +1,16 @@
+<!-- 로그인 된 상태에서 유저 정보 받아오기
+
+다음으로 코드로 데이터베이스 연결 후 세션 스타트
+session_name('로그인');
+session_start(); //세션 시작
+
+유저 아이디 변수
+$_SESSION["SESSION_User_ID"]
+유저 이름 변수
+$_SESSION["SESSION_User_name"]
+
+로 받아오시면 됩니다. -->
+
 <!-- 데이터베이스 연결 -->
 <?php
     $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -5,6 +18,9 @@
     printf("Connection failed: %s\n", mysqli_connect_error());
     exit();
     }
+
+    session_name('로그인');
+    session_start(); //세션 시작
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +44,14 @@
       <div class = "profile-content-box">
         <div class = "profile-bio">
           <!-- 샘플 프로필 정보 (추후 데이터베이스에서 받아옴) -->
-          <div class = "profile-name">임채민</div>
-          <div class = "profile-bio-content">샘플 자기소개입니다. 안녕하세요?</div>
+          <?php
+          echo '
+          <div class = "profile-name">'.$_SESSION["SESSION_User_name"].'</div>
+          ';
+          ?>
+          <div class = "profile-bio-content">
+            샘플 자기소개입니다. 안녕하세요?
+          </div>
         </div>
         <div class = "profile-allergy">
           <!-- 알러지 입력 폼 -->
