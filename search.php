@@ -116,7 +116,7 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                          echo '<label><input type="checkbox" name="allergy'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                          echo '<label><input type="checkbox" name="category'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                             }
                     } else {
                     echo "쿼리실행안됨".mysqli_error($link);
@@ -184,267 +184,37 @@
       <div class="flex flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
         <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
           <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
+            
+          
+            <a href="res_detail.php?res_name=원주" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
+              <!--식당 사진-->
               <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
                 <img src="img/image.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">20% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
               </div>
+
+              <!--아이콘, 식당 이름, 별점-->
               <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
                 <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
                   <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-9.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
+                    <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
                   </div>
                   <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Foodworld</p>
+                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">식당이름</p>
                     <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
+                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>
                       <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">46</p>
                     </div>
                   </div>
                 </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]">Opens tomorrow</p>
-                </div>
               </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-2.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">15% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-10.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Pizzahub</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">40</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]">Opens tomorrow</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-3.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">10% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-11.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Donuts hut</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">20</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-4.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">15% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-12.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Donuts hut</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">50</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-6.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">10% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-13.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Ruby Tuesday</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">26</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-8.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">25% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-14.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Kuakata Fried Chicken</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">53</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-5.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">10% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-15.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Red Square</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">45</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image-7.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-                <div class="flex justify-start items-start absolute left-6 top-6 gap-2">
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">tag</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">10% off</p>
-                  </div>
-                  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]">
-                    <p class="flex-grow-0 flex-shrink-0 text-lg text-left text-white">clock</p>
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white">Fast</p>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/image-16.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">Taco Bell</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">Star</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">35</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#79b93c]/20">
-                  <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#79b93c]">Open Now</p>
-                </div>
-              </div>
-            </div>
+            </a>
+
+
           </div>
         </div>
       </div>
+
+      <!--끝-->
     </div>
   </body>
 </html>
