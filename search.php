@@ -178,7 +178,6 @@
                     }
                   }
                 }
-                mysqli_set_charset($con,"utf8");
                 mysqli_stmt_close($stmt);
                 mysqli_close($link);
               ?>

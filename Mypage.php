@@ -55,7 +55,7 @@
                         $allergyID = $row[0];
                         $allergyName = $row[1];
                         echo '
-                        <li><input type="checkbox" id="checkboxOne" value="Rainbow Dash"><label for="checkboxOne">'.$allergyName.'</label></li>
+                        <li><input type="checkbox" id="'.$allergyID.'" value="Rainbow Dash"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
                         ';
                       }
                     }
