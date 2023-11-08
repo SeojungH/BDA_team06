@@ -148,24 +148,34 @@
                 $link = mysqli_connect("localhost", "team06", "team06", "team06");
                 if($link === false)
                     die('연결안됨'.mysqli_connect_error());
-                
-                $sql = 'SELECT * FROM allergy';
-                if($stmt = mysqli_prepare($link, $sql)){
-                    if(mysqli_stmt_execute($stmt)){
-                        mysqli_stmt_bind_result($stmt, $itemID, $item);
-                        while(mysqli_stmt_fetch($stmt)){
-                          $isChecked = '';
-                          if(isset($_POST['allergy']) and in_array($itemID, $_POST['allergy'])){
-                            $isChecked = 'checked="checked"';
-                          }
-                          echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
-                        }
-                    } else {
-                    echo "쿼리실행안됨".mysqli_error($link);
+
+                // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
+                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;'; //원주 (user_ID 값 수정하기)
+                $sql .= 'SELECT * FROM allergy';
+
+                if(mysqli_multi_query($link, $sql)){
+                  // $user_allergy_ID : 사용자가 프로필에 설정해둔 알러지 정보 구하기 
+                  if ($result = mysqli_store_result($link)) {
+                    while ($row = mysqli_fetch_row($result)) {
+                      $user_allergy_ID = $row[0];
                     }
-                }
-                else{
-                    echo "쿼리 준비 불가". mysqli_error($link);
+                  }
+                  mysqli_free_result($result);                    
+                  
+                  // 드롭다운 선택지 만들기
+                  mysqli_next_result($link);
+                  if ($result = mysqli_store_result($link)) {
+                    while ($row = mysqli_fetch_row($result)) {
+                      $itemID = $row[0];
+                      $item = $row[1];
+
+                      $isChecked = '';
+                      if($itemID == $user_allergy_ID or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
+                        $isChecked = 'checked="checked"';
+                      }
+                      echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                    }
+                  }
                 }
                 
                 mysqli_stmt_close($stmt);
