@@ -4,7 +4,7 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Helvetica&display=swap" rel="stylesheet" />
         <link href="./css/Mypage.css" rel="stylesheet" />
-        <title>마이페이지</title>
+        <title></title>
     </head>
     <body>
     <div style="width: 1440px; height: 1024px; position: relative; background: white">
