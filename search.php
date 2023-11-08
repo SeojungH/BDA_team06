@@ -56,18 +56,64 @@
       </div>
       
       <!--검색 필터, 정렬 드롭다운-->
-      <form action="search.php?res_name=" method="POST"> <!--원주 $_GET["res_name"]-->
-        <input type="hidden" name="res_name" value=""> <!--원주 $_GET["res_name"]-->
+      <?php
+        echo '<form action="search.php?res_name='.$_GET["res_name"].'" method="POST">';
+        echo '<input type="hidden" name="res_name" value="'.$_GET["res_name"].'">'
+      ?>
         <!--필터: 카테고리-->
         <select name="category" class="flex justify-start items-center w-[150px] absolute left-[357px] top-[282px] px-4 py-2.5 rounded-[10px] bg-[#fefefe]" style="box-shadow: 0px 4px 20px 0 rgba(255, 214, 0, 0.3)">
           <option selected disabled hidden class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">카테고리</option>
-          <option value="원주" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">원주</option>
+          <?php
+            $link = mysqli_connect("localhost", "team06", "team06", "team06");
+            if($link === false)
+                die('연결안됨'.mysqli_connect_error());
+            
+            $sql = 'SELECT * FROM category';
+            if($stmt = mysqli_prepare($link, $sql)){
+                if(mysqli_stmt_execute($stmt)){
+                    mysqli_stmt_bind_result($stmt, $itemID, $item);
+                    while(mysqli_stmt_fetch($stmt)){
+                        echo '<option value="'.$item.'" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">'.$item.'</option>';
+                        }
+                } else {
+                echo "쿼리실행안됨".mysqli_error($link);
+                }
+            }
+            else{
+                echo "쿼리 준비 불가". mysqli_error($link);
+            }
+            
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+          ?>
         </select>
 
         <!--필터: 알러지-->
         <select name="allergy" class="flex justify-start items-center w-[150px] absolute left-[546px] top-[282px] px-4 py-2.5 rounded-[10px] bg-[#fefefe]" style="box-shadow: 0px 4px 20px 0 rgba(255, 214, 0, 0.3)">
           <option selected disabled hidden class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">알러지</option>
-          <option value="원주" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">원주</option>
+          <?php
+            $link = mysqli_connect("localhost", "team06", "team06", "team06");
+            if($link === false)
+                die('연결안됨'.mysqli_connect_error());
+            
+            $sql = 'SELECT * FROM allergy';
+            if($stmt = mysqli_prepare($link, $sql)){
+                if(mysqli_stmt_execute($stmt)){
+                    mysqli_stmt_bind_result($stmt, $itemID, $item);
+                    while(mysqli_stmt_fetch($stmt)){
+                        echo '<option value="'.$item.'" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">'.$item.'</option>';
+                        }
+                } else {
+                echo "쿼리실행안됨".mysqli_error($link);
+                }
+            }
+            else{
+                echo "쿼리 준비 불가". mysqli_error($link);
+            }
+            
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+          ?>
         </select>
         
         <!--정렬-->
