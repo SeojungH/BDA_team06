@@ -19,7 +19,8 @@
   <body>
     <div class = "content">
         <div class="Left-box">
-
+            <!-- 뒤로가기 버튼 -->
+            <button onclick="history.back()">Go Back</button>
         </div>
         <div class="Login-box">
             <h1>회원가입</h1>

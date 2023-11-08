@@ -19,7 +19,6 @@
   <body>
     <div class = "content">
         <div class="Left-box">
-
         </div>
         <div class="Login-box">
             <h1>로그인</h1>
@@ -39,6 +38,7 @@
                         <button class="btn-Login">Login</button>
                     </div>
             </form>
+            <!-- 회원가입 -->
             <div class = "register-box">
                 <p>아직 회원이 아니신가요?</p>
                 <div class="btn-wrap-register">
