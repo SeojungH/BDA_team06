@@ -8,7 +8,7 @@
     <style>
       html,
       body {
-        display: flex;
+        display: block;
         flex-direction: column;
         flex: 1;
         width: 100%;
