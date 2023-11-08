@@ -45,7 +45,11 @@
         <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white">
           <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
             <form action="search.php" method="GET"> 
-              <input type="text" name="res_name" placeholder="식당 이름을 입력하세요." size="60" class="justify-start flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100flex-grow-0 flex-shrink-0 text-lg text-left text-[#9e9e9e] bg-neutral-100">
+              <?php
+                ini_set('display_errors', '0'); //error 메시지 숨기기
+                $basicText = $_GET['res_name'] or $basicText = '식당 이름을 입력하세요.';
+                echo '<input type="text" name="res_name" placeholder="'.$basicText.'" size="60" class="justify-start flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100flex-grow-0 flex-shrink-0 text-lg text-left text-[#9e9e9e] bg-neutral-100">';
+              ?>
               <button type="submit" class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg" style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%)">
                 <img width="14px" src="img/search.png">
                 <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">Find Restaurant</p>
