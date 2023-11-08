@@ -60,7 +60,7 @@ $_SESSION["SESSION_User_name"]
               <ul class="ks-cboxtags">
                 <?php                  
                   // 알러지 체크박스 구성
-                  $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;'; //원주 (user_ID 값 수정하기)
+                  $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;';
                   $sql .= 'SELECT * FROM allergy';
 
                   if(mysqli_multi_query($mysqli, $sql)){ 
