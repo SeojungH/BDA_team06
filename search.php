@@ -118,9 +118,9 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                          $isChecked = '';
-                          if(isset($_POST['category']) and in_array($itemID, $_POST['category'])){
-                            $isChecked = 'checked="checked"';
+                          $isChecked = 'checked="checked"';
+                          if(isset($_POST['category']) and !in_array($itemID, $_POST['category'])){
+                            $isChecked = '';
                           }
                           echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'"'.$isChecked.'class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                             }
