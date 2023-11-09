@@ -32,6 +32,10 @@ $_SESSION["SESSION_User_name"]
 <html>
     <head>
       <meta charset="utf-8" />
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      />
       <link href="./css/Mypage.css" rel="stylesheet" />
       <title>
         마이페이지
