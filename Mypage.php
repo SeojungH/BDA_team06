@@ -12,24 +12,30 @@ $_SESSION["SESSION_User_name"]
 로 받아오시면 됩니다. -->
 
 <!-- 데이터베이스 연결 -->
+
 <?php
     $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
+
+    //한글 깨짐 오류 인코딩
+    mysqli_query($mysqli, "SET NAMES utf8");			
+
     if(mysqli_connect_errno()){
     printf("Connection failed: %s\n", mysqli_connect_error());
     exit();
     }
 
-    session_name('로그인');
+    // session_name('로그인');
     session_start(); //세션 시작
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="./css/Mypage.css" rel="stylesheet" />
-        <title>
-          마이페이지
-        </title>
+      <meta charset="utf-8" />
+      <link href="./css/Mypage.css" rel="stylesheet" />
+      <title>
+        마이페이지
+      </title>
     </head>
     <body>
       <div class = "profile-img-box">
@@ -60,6 +66,7 @@ $_SESSION["SESSION_User_name"]
               <ul class="ks-cboxtags">
                 <?php                  
                   // 알러지 체크박스 구성
+                  // 이미 체크된 알러지 체크상태로 불러오는 코드로 수정 필요
                   $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;';
                   $sql .= 'SELECT * FROM allergy';
 
