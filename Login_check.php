@@ -7,7 +7,7 @@
     }
 
     //세션 사용 로그인
-    session_name('로그인');
+    // session_name('로그인');
     session_start();
 
     // 아이디 비밀번호 입력값
@@ -40,7 +40,7 @@
             echo "<script>alert('아이디 혹은 비밀번호가 틀립니다.');</script>";
             echo "<script>location.replace('./Login.php');</script>";
         }
-    } else { //아이디가 존재하지 않음
+    } else { //아이디가 존재하지 않음 (이거 체크 안되는 중)
         echo "<script>alert('아이디가 존재하지 않습니다.');</script>";
         echo "<script>location.replace('./Login.php');</script>";
     }
