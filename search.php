@@ -113,6 +113,7 @@
                     die('연결안됨'.mysqli_connect_error());
                 
                 $sql = 'SELECT * FROM category';
+                
                 if($stmt = mysqli_prepare($link, $sql)){
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
@@ -177,7 +178,7 @@
                     }
                   }
                 }
-                
+
                 mysqli_close($link);
               ?>
             </div>
