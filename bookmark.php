@@ -27,8 +27,16 @@
 
             <?php
                 // 사용자가 Bookmark 한 Restaurant 정보와 Bookmark 총 개수 가져오기
+
+                //세션 가져오기
+                session_name('로그인');
+                session_start();
+
                 #$userID = $_GET['user_id']; // 사용자의 User_ID
-                $userID = 1; // 사용자의 User_ID
+                #$userID = 1; // 사용자의 User_ID
+                $user_ID = $_SESSION["SESSION_User_ID"];
+                $user_name = $_SESSION["SESSION_User_name"];
+                #$user_name = '승민';
                 $counter = 0; // row 구분 counter
 
 
@@ -50,7 +58,7 @@
                 $bookmarkQuery = "SELECT *
                                 FROM Restaurant R
                                 LEFT JOIN Bookmark B ON R.Res_ID = B.Res_ID
-                                WHERE B.User_ID = '$userID'
+                                WHERE B.User_ID = '$user_ID'
                                 GROUP BY R.Res_ID";
                 $bookmarkResult = $conn->query($bookmarkQuery);
 
@@ -91,22 +99,22 @@
                     <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
                       <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
                         <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
-                        if ($row['Res_ID'] == 1){
+                        if ($row['Category_ID'] == 1){
                             echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
-                        else if ($row['Res_ID'] == 2){
+                        else if ($row['Category_ID'] == 2){
                           echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
-                        else if ($row['Res_ID'] == 3){
+                        else if ($row['Category_ID'] == 3){
                           echo "<img src='./img/pasta.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
-                        else if ($row['Res_ID'] == 4){
+                        else if ($row['Category_ID'] == 4){
                           echo "<img src='./img/한식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
-                        else if ($row['Res_ID'] == 5){
+                        else if ($row['Category_ID'] == 5){
                           echo "<img src='./img/일식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
-                        else if ($row['Res_ID'] == 6){
+                        else if ($row['Category_ID'] == 6){
                           echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                         }
                           
@@ -178,7 +186,7 @@
       <div class="w-[200px] h-[271px]">
         <img class="absolute left-[679.5px] top-[108.5px]" src="./img/ellipse-1.png" />
         <p class="w-[142px] absolute left-[706px] top-[325px] text-5xl italic text-left text-black">
-          백승민
+            <?php echo $user_name; ?>
         </p>
       </div>
     </div>
