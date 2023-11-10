@@ -191,7 +191,7 @@
             
             $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
                     FROM restaurant R
-                      join (SELECT Res_ID, AVG(Res_rating) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
+                      join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
                       on R.Res_ID = AVG_RATE.Res_ID
                     WHERE ';
             
