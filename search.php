@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <?php
+      session_name('로그인');
+      session_start();
+    ?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preview</title>
@@ -37,30 +41,6 @@
         </div>
       </div>
     
-      <!--검색 바-->
-      <div class="flex flex-col justify-start items-start w-[856px] absolute left-[359px] top-[135px] overflow-hidden rounded-2xl" style="filter: drop-shadow(0px 5px 10px rgba(255, 174, 0, 0.26)) drop-shadow(0px 20px 40px rgba(255, 174, 0, 0.29))">
-        <svg width="856" height="1" viewBox="0 0 856 1" fill="none" xmlns="http://www.w3.org/2000/svg" class="self-stretch flex-grow-0 flex-shrink-0" preserveAspectRatio="none">
-          <path d="M0 0.441721C12.4187 -0.358279 575.841 0.108388 856 0.441721" stroke="#EEEEEE"></path>
-        </svg>
-        <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white">
-          <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
-            <form action="search.php" method="GET"> 
-              <?php
-                $basicText = '식당 이름을 입력하세요.';
-                if(isset($_GET['res_name'])){
-                  $basicText = $_GET['res_name'];
-                }
-                echo '<input type="text" name="res_name" placeholder="'.$basicText.'" size="60" class="justify-start flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100flex-grow-0 flex-shrink-0 text-lg text-left text-[#9e9e9e] bg-neutral-100">';
-              ?>
-              <button type="submit" class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg" style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%)">
-                <img width="14px" src="img/search.png">
-                <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">Find Restaurant</p>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      
       <!--검색 필터, 정렬 드롭다운-->
       <!--CSS, JS 코드-->
       <style>
@@ -99,7 +79,7 @@
       
       <!--form 태그-->
       <?php
-        echo '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+        echo '<form action="" method="POST">';
       ?>
         <!--필터: 카테고리-->
         <div class="dropdown">
@@ -151,14 +131,15 @@
                     die('연결안됨'.mysqli_connect_error());
 
                 // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
-                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;'; //원주 (user_ID 값 수정하기)
+                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
                 $sql .= 'SELECT * FROM allergy';
 
                 if(mysqli_multi_query($link, $sql)){
                   // $user_allergy_ID : 사용자가 프로필에 설정해둔 알러지 정보 구하기 
                   if ($result = mysqli_store_result($link)) {
+                    $user_allergy_ID = array();
                     while ($row = mysqli_fetch_row($result)) {
-                      $user_allergy_ID = $row[0];
+                      array_push($user_allergy_ID, $row[0]);
                     }
                   }
                   mysqli_free_result($result);                    
@@ -171,14 +152,14 @@
                       $item = $row[1];
 
                       $isChecked = '';
-                      if($itemID == $user_allergy_ID or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
+                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
                         $isChecked = 'checked="checked"';
                       }
                       echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                     }
                   }
                 }
-                mysqli_stmt_close($stmt);
+
                 mysqli_close($link);
               ?>
             </div>
@@ -203,31 +184,92 @@
       <div class="flex flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
         <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
           <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
+          <?php
+            $link = mysqli_connect("localhost", "team06", "team06", "team06");
+            if($link === false)
+                die('연결안됨'.mysqli_connect_error());
             
-          
-            <a href="res_detail.php?res_name=원주" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <!--식당 사진-->
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-              </div>
+            $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
+                    FROM restaurant R
+                      join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
+                      on R.Res_ID = AVG_RATE.Res_ID
+                    WHERE ';
+            
+            
+            // 필터 (카테고리)
+            if(isset($_POST['category'])){ // POST로 전달된 값이 있으면 (사용자가 필터 적용 버튼을 눌렀으면)
+              $sql .= 'R.Category_ID IN ('.implode(', ', $_POST['category']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+            } else if(isset($_GET['category_id'])){ // GET으로 전달된 값이 있으면 (사용자가 메인페이지에서 카테고리를 선택해서 넘어온 거라면)
+              $sql .= 'R.Category_ID = '.$_GET['category_id'].'';
+            }
 
-              <!--아이콘, 식당 이름, 별점-->
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">식당이름</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">46</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
+            // 필터 (알러지)
+            if(isset($_POST['allergy'])){
+              $temp = implode(', ', $_POST['allergy']); // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+            } else{ //POST로 전달된 값이 없을 때는 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
+              $temp = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
+            }
+            $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                            FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                            WHERE A.Allergy_ID IN ('.$temp.'))';
 
+            // 정렬
+            $sort = 'recent'; // 기본값
+            if(isset($_POST['sort'])){ // POST로 넘어온 값이 있으면
+              $sort = $_POST['sort'];
+            } 
+            switch($sort){
+              case('rate_high'):
+                $sql .= ' ORDER BY AVG_RATE.Avg_rating DESC';
+                break;
+              case('rate_low'):
+                $sql .= ' ORDER BY AVG_RATE.Avg_rating';
+                break;
+              default:
+                $sql .= ' ORDER BY R.Res_ID DESC';
+            }
+            
+            // 쿼리 실행
+            if($stmt = mysqli_prepare($link, $sql)){
+                if(mysqli_stmt_execute($stmt)){
+                    mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
+                    while(mysqli_stmt_fetch($stmt)){
+                      // 식당 정보 출력
+                      echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
+                      
+                      // 식당 사진
+                      echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
+                      echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
+                      echo '</div>';
+
+                      // 아이콘, 식당 이름, 별점
+                      echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
+                      echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
+                      echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
+                      echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
+                      echo '    </div>';
+                      echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
+                      echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
+                      echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
+                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
+                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
+                      echo '      </div>';
+                      echo '    </div>';                    
+                      echo '  </div>';                    
+                      echo '</div>';                    
+                      echo '</a>';                    
+                    }
+                } else {
+                echo "쿼리실행안됨".mysqli_error($link);
+                }
+            }
+            else{
+                echo "쿼리 준비 불가". mysqli_error($link);
+            }
+            
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+          ?>
           </div>
         </div>
       </div>
