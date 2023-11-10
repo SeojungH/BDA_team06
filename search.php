@@ -41,30 +41,6 @@
         </div>
       </div>
     
-      <!--검색 바-->
-      <div class="flex flex-col justify-start items-start w-[856px] absolute left-[359px] top-[135px] overflow-hidden rounded-2xl" style="filter: drop-shadow(0px 5px 10px rgba(255, 174, 0, 0.26)) drop-shadow(0px 20px 40px rgba(255, 174, 0, 0.29))">
-        <svg width="856" height="1" viewBox="0 0 856 1" fill="none" xmlns="http://www.w3.org/2000/svg" class="self-stretch flex-grow-0 flex-shrink-0" preserveAspectRatio="none">
-          <path d="M0 0.441721C12.4187 -0.358279 575.841 0.108388 856 0.441721" stroke="#EEEEEE"></path>
-        </svg>
-        <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white">
-          <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
-            <form action="search.php" method="GET"> 
-              <?php
-                $basicText = '식당 이름을 입력하세요.';
-                if(isset($_GET['res_name'])){
-                  $basicText = $_GET['res_name'];
-                }
-                echo '<input type="text" name="res_name" placeholder="'.$basicText.'" size="60" class="justify-start flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100flex-grow-0 flex-shrink-0 text-lg text-left text-[#9e9e9e] bg-neutral-100">';
-              ?>
-              <button type="submit" class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg" style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%)">
-                <img width="14px" src="img/search.png">
-                <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">Find Restaurant</p>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      
       <!--검색 필터, 정렬 드롭다운-->
       <!--CSS, JS 코드-->
       <style>
