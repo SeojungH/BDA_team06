@@ -7,7 +7,7 @@
     }
 
     //세션 사용 로그인
-    // session_name('로그인');
+    session_name('로그인');
     session_start();
 
     // 아이디 비밀번호 입력값

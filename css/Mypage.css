@@ -23,6 +23,7 @@ body {
     top: -100px;
     margin: 0 auto;
     width:200px;
+
     /* max-width: 1170px; */
 }
 
@@ -37,7 +38,7 @@ body {
     height: 200px;
     border: 5px solid rgb(235, 217, 173);
     border-radius: 50%;
-    
+    cursor:pointer;
     position: relative;
 }
 
@@ -149,7 +150,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 }
 
 .profile-bio-content {
-    margin-top: 30px;
+    /* margin-top: 30px; */
     color: #adadad;
 }
 

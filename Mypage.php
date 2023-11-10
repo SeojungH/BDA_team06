@@ -1,7 +1,6 @@
 <!-- 로그인 된 상태에서 유저 정보 받아오기
 
 다음으로 코드로 데이터베이스 연결 후 세션 스타트
-session_name('로그인');
 session_start(); //세션 시작
 
 유저 아이디 변수
@@ -23,8 +22,7 @@ $_SESSION["SESSION_User_name"]
     printf("Connection failed: %s\n", mysqli_connect_error());
     exit();
     }
-
-    // session_name('로그인');
+    session_name('로그인');
     session_start(); //세션 시작
 ?>
 
@@ -37,15 +35,23 @@ $_SESSION["SESSION_User_name"]
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       />
       <link href="./css/Mypage.css" rel="stylesheet" />
+      <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+      <script type="text/javascript">   
+      $(document).ready( function() {
+      $("#nav").load("html/nav.html");
+      // $("#footers").load("common/footer.html");
+      });
+      </script>
       <title>
         마이페이지
       </title>
     </head>
+    <div id="nav"></div>
     <body>
       <div class = "profile-img-box">
         <div class = "profile-background-img"></div>
         <div class = "profile-circle-img-wrap">
-          <div class="profile-circle-img">
+          <div class="profile-circle-img" onclick = "location.href='bookmark.php'">
             <!-- 샘플 프로필 이미지 (추후 데이터베이스에서 받아옴) -->
             <img src = "./img/sample_profile_img.jpg"> 
           </div>
@@ -53,14 +59,33 @@ $_SESSION["SESSION_User_name"]
       </div>
       <div class = "profile-content-box">
         <div class = "profile-bio">
-          <!-- 샘플 프로필 정보 (추후 데이터베이스에서 받아옴) -->
-          <?php
-          echo '
-          <div class = "profile-name">'.$_SESSION["SESSION_User_name"].'</div>
-          ';
-          ?>
+          <!-- 프로필 정보 (이름/바이오) -->
           <div class = "profile-bio-content">
-            샘플 자기소개입니다. 안녕하세요?
+            <?php
+
+            echo '
+            <div class = "profile-name">'.$_SESSION["SESSION_User_name"].'</div>
+            ';
+
+            $User_ID = $_SESSION["SESSION_User_ID"];
+
+            $sql = "
+            SELECT * FROM User WHERE User_ID ='".$User_ID."'
+            ";
+
+            $result = mysqli_query($mysqli, $sql);
+            if ($result) {
+              $row = mysqli_fetch_array($result);
+              $User_bio = $row['User_bio'];
+              // $User_
+              echo ''
+              .$User_bio.
+              '';
+            }
+
+            mysqli_free_result($result);
+
+            ?>
           </div>
         </div>
         <div class = "profile-allergy">
@@ -68,27 +93,32 @@ $_SESSION["SESSION_User_name"]
           <form action = "user_allergy_update.php" method="POST">
             <div class="container">
               <ul class="ks-cboxtags">
-                <?php                  
+                <?php
+                                  
                   // 알러지 체크박스 구성
-                  // 이미 체크된 알러지 체크상태로 불러오는 코드로 수정 필요
-                  $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;';
-                  $sql .= 'SELECT * FROM allergy';
+                  $sql = 'SELECT * FROM allergy';
 
                   if(mysqli_multi_query($mysqli, $sql)){ 
                     if ($result = mysqli_store_result($mysqli)) {
                       while ($row = mysqli_fetch_row($result)) {
-                        $user_allergy_ID = $row[0];
-                      }
-                    }
-                    mysqli_free_result($result);  
-
-                    mysqli_next_result($mysqli);
-                    if ($result = mysqli_store_result($mysqli)) {
-                      while ($row = mysqli_fetch_row($result)) {
                         $allergyID = $row[0];
                         $allergyName = $row[1];
+
+                        // 아직 작동 안됨
+                        $sql_2 = "
+                        SELECT * FROM User_Allergy WHERE User_ID ='".$User_ID."'
+                        ";
+                        $row_2 = mysqli_query($mysqli, $sql_2);
+                        $allergyCheck = mysqli_fetch_row($row_2);
+                        if (in_array($allergyID,$allergyCheck)) { //사용자가 이 알러지를 이미 체크해두었음
+                          $CHECK = "on";
+                        } else {
+                          $CHECK = "off";
+                        }
+
+                        // $allergyCheck
                         echo '
-                        <li><input type="checkbox" id="'.$allergyID.'" value="Rainbow Dash"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
+                        <li><input type="checkbox" checked="'.$CHECK.'" id="'.$allergyID.'" value="Rainbow Dash"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
                         ';
                       }
                     }
