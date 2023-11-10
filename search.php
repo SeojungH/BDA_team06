@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <?php
+      session_name('로그인');
+      session_start();
+    ?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preview</title>
@@ -99,7 +103,7 @@
       
       <!--form 태그-->
       <?php
-        echo '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+        echo '<form action="" method="POST">';
       ?>
         <!--필터: 카테고리-->
         <div class="dropdown">
@@ -151,14 +155,15 @@
                     die('연결안됨'.mysqli_connect_error());
 
                 // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
-                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = 1;'; //원주 (user_ID 값 수정하기)
+                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
                 $sql .= 'SELECT * FROM allergy';
 
                 if(mysqli_multi_query($link, $sql)){
                   // $user_allergy_ID : 사용자가 프로필에 설정해둔 알러지 정보 구하기 
                   if ($result = mysqli_store_result($link)) {
+                    $user_allergy_ID = array();
                     while ($row = mysqli_fetch_row($result)) {
-                      $user_allergy_ID = $row[0];
+                      array_push($user_allergy_ID, $row[0]);
                     }
                   }
                   mysqli_free_result($result);                    
@@ -171,7 +176,7 @@
                       $item = $row[1];
 
                       $isChecked = '';
-                      if($itemID == $user_allergy_ID or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
+                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
                         $isChecked = 'checked="checked"';
                       }
                       echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
@@ -208,16 +213,56 @@
             if($link === false)
                 die('연결안됨'.mysqli_connect_error());
             
-            $sql = 'SELECT Res_ID, Res_name, Res_img_url, category_ID
-                    FROM restaurant join PRODUCT P join SALES S
-                    on C.CUSTOMER.ID = S.CUSTOMER.ID and C.PRODUCT_ID = S.PRODUCT_ID
-                    WHERE C.CUSTOMER_NAME = ? AND P.PRODUCT_TYPE = ?';
+            $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
+                    FROM restaurant R join res_menu M join menu_allergy A join (SELECT Res_ID, AVG(Res_rating) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
+                      on R.Res_ID = M.Res_ID and M.Res_menu_ID = A.Res_menu_ID and R.Res_ID = AVG_RATE.Res_ID
+                    WHERE ';
             
+            // 검색
+            if(isset($_GET['res_name'])){ // 식당 이름으로 검색한 경우
+              $sql .= 'R.Res_name = "'.$_GET['res_name'].'"';
+            } else{ // (ex: 메인페이지에서 카테고리를 선택해서 넘어온 경우)
+              $sql .= '"" = ""'; // 뒤에서 AND를 넣을 거라 처음에 조건 하나는 꼭 넣어줘야 함.
+            }
+
+            // 필터 (카테고리)
+            if(isset($_POST['category'])){ // POST로 전달된 값이 있으면 (사용자가 필터 적용 버튼을 눌렀으면)
+              $sql .= ' AND R.Category_ID IN ('.implode(', ', $_POST['category']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+            } else if(isset($_GET['category_id'])){ // GET으로 전달된 값이 있으면 (사용자가 메인페이지에서 카테고리를 선택해서 넘어온 거라면)
+              $sql .= ' AND R.Category_ID = '.$_GET['category_id'].'';
+            } else{ //전달된 값이 아예 없을 때는 --> 카테고리 필터 초기값 : 모든 카테고리 --> SQL문 조건 추가 필요 없음.
+            }
+
+            // 필터 (알러지)
+            if(isset($_POST['allergy'])){
+              $sql .= ' AND A.Allergy_ID NOT IN ('.implode(', ', $_POST['allergy']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+            } else{ //POST로 전달된 값이 없을 때는 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
+              $sql .= ' AND A.Allergy_ID NOT IN (SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].')';
+            }
+
+            // 정렬
+            $sort = 'recent'; // 기본값
+            if(isset($_POST['sort'])){ // POST로 넘어온 값이 있으면
+              $sort = $_POST['sort'];
+            } 
+            switch($sort){
+              case('rate_high'):
+                $sql .= ' ORDER BY AVG_RATE.Avg_rating DESC';
+                break;
+              case('rate_low'):
+                $sql .= ' ORDER BY AVG_RATE.Avg_rating';
+                break;
+              default:
+                $sql .= ' ORDER BY R.Res_ID DESC';
+            }
+            
+            // 쿼리 실행
             if($stmt = mysqli_prepare($link, $sql)){
                 if(mysqli_stmt_execute($stmt)){
-                    mysqli_stmt_bind_result($stmt, $res_img_url, $item);
+                    mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
+                    echo '<p>sql : '.$sql.'</p>'; // 원주
                     while(mysqli_stmt_fetch($stmt)){
-                        echo '<label><input type="checkbox" name="allergy'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                        echo '우왕 : '.$Res_ID.' '.$Res_name; // 원주
                         }
                 } else {
                 echo "쿼리실행안됨".mysqli_error($link);
