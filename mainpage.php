@@ -512,101 +512,29 @@
             </div>
           </div>
         </div>
-        <div
-          class="flex justify-between items-start flex-grow-0 flex-shrink-0 w-[1479px] absolute left-0 top-[164px]"
-        >
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/분식.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              분식
-            </p>
-          </div>
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/중식.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              중식
-            </p>
-          </div>
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/pasta.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              양식
-            </p>
-          </div>
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/한식.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              한식
-            </p>
-          </div>
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/일식.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              일식
-            </p>
-          </div>
-          <div
-            class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]"
-          >
-            <div
-              class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]"
-            >
-              <img
-                src="./img/pizza.png"
-                class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover"
-              />
-            </div>
-            <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">
-              피자
-            </p>
-          </div>
-        </div>
-      </div>
+        <?php
+          $categories = array(
+              array("id" => 1, "name" => "분식", "image" => "./img/분식.png"),
+              array("id" => 2, "name" => "중식", "image" => "./img/중식.png"),
+              array("id" => 3, "name" => "파스타", "image" => "./img/pasta.png"),
+              array("id" => 4, "name" => "한식", "image" => "./img/한식.png"),
+              array("id" => 5, "name" => "일식", "image" => "./img/일식.png"),
+              array("id" => 6, "name" => "피자", "image" => "./img/pizza.png"),
+          );
+
+          echo '<div class="flex justify-between items-start flex-grow-0 flex-shrink-0 w-[1479px] absolute left-0 top-[164px]">';
+          foreach ($categories as $category) {
+              echo '<div class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]">';
+              echo '<div class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]">';
+              echo '<a href="search.php?category_id=' . $category["id"] . '">';
+              echo '<img src="' . $category["image"] . '" class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover" />';
+              echo '</a>';
+              echo '</div>';
+              echo '<p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">' . $category["name"] . '</p>';
+              echo '</div>';
+          }
+          echo '</div>';
+          ?>
     </div>
   </body>
 </html>
