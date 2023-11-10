@@ -178,7 +178,6 @@
                   }
                 }
                 
-                mysqli_stmt_close($stmt);
                 mysqli_close($link);
               ?>
             </div>
@@ -203,8 +202,34 @@
       <div class="flex flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
         <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
           <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
+          <?php
+            $link = mysqli_connect("localhost", "team06", "team06", "team06");
+            if($link === false)
+                die('연결안됨'.mysqli_connect_error());
             
-          
+            $sql = 'SELECT Res_ID, Res_name, Res_img_url, category_ID
+                    FROM restaurant join PRODUCT P join SALES S
+                    on C.CUSTOMER.ID = S.CUSTOMER.ID and C.PRODUCT_ID = S.PRODUCT_ID
+                    WHERE C.CUSTOMER_NAME = ? AND P.PRODUCT_TYPE = ?';
+            
+            if($stmt = mysqli_prepare($link, $sql)){
+                if(mysqli_stmt_execute($stmt)){
+                    mysqli_stmt_bind_result($stmt, $res_img_url, $item);
+                    while(mysqli_stmt_fetch($stmt)){
+                        echo '<label><input type="checkbox" name="allergy'.$itemID.'" class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                        }
+                } else {
+                echo "쿼리실행안됨".mysqli_error($link);
+                }
+            }
+            else{
+                echo "쿼리 준비 불가". mysqli_error($link);
+            }
+            
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+          ?>
+
             <a href="res_detail.php?res_name=원주" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
               <!--식당 사진-->
               <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
