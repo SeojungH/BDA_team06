@@ -214,31 +214,28 @@
                 die('연결안됨'.mysqli_connect_error());
             
             $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
-                    FROM restaurant R join res_menu M join menu_allergy A join (SELECT Res_ID, AVG(Res_rating) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
-                      on R.Res_ID = M.Res_ID and M.Res_menu_ID = A.Res_menu_ID and R.Res_ID = AVG_RATE.Res_ID
+                    FROM restaurant R
+                      join (SELECT Res_ID, AVG(Res_rating) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
+                      on R.Res_ID = AVG_RATE.Res_ID
                     WHERE ';
             
-            // 검색
-            if(isset($_GET['res_name'])){ // 식당 이름으로 검색한 경우
-              $sql .= 'R.Res_name = "'.$_GET['res_name'].'"';
-            } else{ // (ex: 메인페이지에서 카테고리를 선택해서 넘어온 경우)
-              $sql .= '"" = ""'; // 뒤에서 AND를 넣을 거라 처음에 조건 하나는 꼭 넣어줘야 함.
-            }
-
+            
             // 필터 (카테고리)
             if(isset($_POST['category'])){ // POST로 전달된 값이 있으면 (사용자가 필터 적용 버튼을 눌렀으면)
-              $sql .= ' AND R.Category_ID IN ('.implode(', ', $_POST['category']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+              $sql .= 'R.Category_ID IN ('.implode(', ', $_POST['category']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
             } else if(isset($_GET['category_id'])){ // GET으로 전달된 값이 있으면 (사용자가 메인페이지에서 카테고리를 선택해서 넘어온 거라면)
-              $sql .= ' AND R.Category_ID = '.$_GET['category_id'].'';
-            } else{ //전달된 값이 아예 없을 때는 --> 카테고리 필터 초기값 : 모든 카테고리 --> SQL문 조건 추가 필요 없음.
+              $sql .= 'R.Category_ID = '.$_GET['category_id'].'';
             }
 
             // 필터 (알러지)
             if(isset($_POST['allergy'])){
-              $sql .= ' AND A.Allergy_ID NOT IN ('.implode(', ', $_POST['allergy']).')'; // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
+              $temp = implode(', ', $_POST['allergy']); // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
             } else{ //POST로 전달된 값이 없을 때는 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
-              $sql .= ' AND A.Allergy_ID NOT IN (SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].')';
+              $temp = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
             }
+            $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                            FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                            WHERE A.Allergy_ID IN ('.$temp.'))';
 
             // 정렬
             $sort = 'recent'; // 기본값
@@ -260,10 +257,32 @@
             if($stmt = mysqli_prepare($link, $sql)){
                 if(mysqli_stmt_execute($stmt)){
                     mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
-                    echo '<p>sql : '.$sql.'</p>'; // 원주
                     while(mysqli_stmt_fetch($stmt)){
-                        echo '우왕 : '.$Res_ID.' '.$Res_name; // 원주
-                        }
+                      // 식당 정보 출력
+                      echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
+                      
+                      // 식당 사진
+                      echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
+                      echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
+                      echo '</div>';
+
+                      // 아이콘, 식당 이름, 별점
+                      echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
+                      echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
+                      echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
+                      echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
+                      echo '    </div>';
+                      echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
+                      echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
+                      echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
+                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
+                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
+                      echo '      </div>';
+                      echo '    </div>';                    
+                      echo '  </div>';                    
+                      echo '</div>';                    
+                      echo '</a>';                    
+                    }
                 } else {
                 echo "쿼리실행안됨".mysqli_error($link);
                 }
@@ -275,30 +294,6 @@
             mysqli_stmt_close($stmt);
             mysqli_close($link);
           ?>
-
-            <a href="res_detail.php?res_name=원주" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">
-              <!--식당 사진-->
-              <div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">
-                <img src="img/image.png" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />
-              </div>
-
-              <!--아이콘, 식당 이름, 별점-->
-              <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">
-                <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">
-                  <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">
-                    <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />
-                  </div>
-                  <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
-                    <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">식당이름</p>
-                    <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>
-                      <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">46</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
           </div>
         </div>
       </div>
