@@ -233,7 +233,10 @@
             if($stmt = mysqli_prepare($link, $sql)){
                 if(mysqli_stmt_execute($stmt)){
                     mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
+                    $searchCheck = false;
+
                     while(mysqli_stmt_fetch($stmt)){
+                      $searchCheck = true;
                       // 식당 정보 출력
                       echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
                       
@@ -259,6 +262,9 @@
                       echo '</div>';                    
                       echo '</a>';                    
                     }
+
+                    if(!$searchCheck) // 검색결과 없음
+                      echo '검색 결과가 없습니다.';
                 } else {
                 echo "쿼리실행안됨".mysqli_error($link);
                 }
