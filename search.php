@@ -213,7 +213,13 @@
             if($link === false)
                 die('연결안됨'.mysqli_connect_error());
             
-            $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
+            // DB에서 식당별 찜 개수 가져오는 SQL문
+            $sql = 'SELECT Res_ID, COUNT(User_ID) AS bookmark_count
+                    FROM Bookmark
+                    GROUP BY Res_ID;';
+
+            // DB에서 필터, 정렬에 맞게 식당 목록 가져오는 SQL문
+            $sql .= 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
                     FROM restaurant R
                       join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
                       on R.Res_ID = AVG_RATE.Res_ID
@@ -254,50 +260,71 @@
             }
             
             // 쿼리 실행
-            if($stmt = mysqli_prepare($link, $sql)){
-                if(mysqli_stmt_execute($stmt)){
-                  mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
-                  $searchCheck = false;
+            if(mysqli_multi_query($link, $sql)){
+              // 찜 개수 저장
+              if ($result = mysqli_store_result($link)) {
+                $Bookmark_count_array = array();
+                while ($row = mysqli_fetch_row($result)) {
+                  $Res_ID = $row[0];
+                  $Bookmark_count = $row[1];
 
-                  while(mysqli_stmt_fetch($stmt)){
-                    $searchCheck = true;
-                    // 식당 정보 출력
-                    echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
-                    
-                    // 식당 사진
-                    echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative rounded-2xl bg-white">';
-                    echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
-                    echo '</div>';
+                  $Bookmark_count_array[$Res_ID] = $Bookmark_count;
+                }
+              }
+              mysqli_free_result($result);                    
 
-                    // 아이콘, 식당 이름, 별점
-                    echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
-                    echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
-                    echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
-                    echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
-                    echo '    </div>';
-                    echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
-                    echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
-                    echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
-                    echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
-                    echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
-                    echo '      </div>';
-                    echo '    </div>';                    
-                    echo '  </div>';                    
-                    echo '</div>';                    
-                    echo '</a>';                    
+              // 식당 목록 보여주기
+              mysqli_next_result($link);
+              if ($result = mysqli_store_result($link)) {
+                $searchCheck = false;
+
+                while ($row = mysqli_fetch_row($result)) {
+                  $searchCheck = true;
+
+                  $Res_ID = $row[0];
+                  $Res_name = $row[1];
+                  $Res_img_url = $row[2];
+                  $Category_ID = $row[3];
+                  $Avg_rating = $row[4];
+
+                  $Bookmark_count = 0;
+                  if(isset($Bookmark_count_array[$Res_ID])){ // 찜 개수가 있으면
+                    $Bookmark_count = $Bookmark_count_array[$Res_ID];
                   }
 
-                  if(!$searchCheck) // 검색결과 없음
-                    echo '검색 결과가 없습니다.';
-                } else {
-                echo "쿼리실행안됨".mysqli_error($link);
+                  // 식당 정보 출력
+                  echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
+                  
+                  // 식당 사진
+                  echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative rounded-2xl bg-white">';
+                  echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
+                  echo '</div>';
+
+                  // 아이콘, 식당 이름, 별점
+                  echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
+                  echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
+                  echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
+                  echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
+                  echo '    </div>';
+                  echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
+                  echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
+                  echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.' / </p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">찜</p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Bookmark_count.'</p>'; // 찜 개수 기본값 : 0개
+                  echo '      </div>';
+                  echo '    </div>';                    
+                  echo '  </div>';                    
+                  echo '</div>';                    
+                  echo '</a>';                    
                 }
-            }
-            else{
-                echo "쿼리 준비 불가". mysqli_error($link);
+
+                if(!$searchCheck) // 검색결과 없음
+                  echo '검색 결과가 없습니다.';
+              }
             }
             
-            mysqli_stmt_close($stmt);
             mysqli_close($link);
           ?>
           </div>
