@@ -17,19 +17,12 @@
 
     $user_bio_sample = "기본 바이오 입니다. 새로 설정해 주세요.";
 
-    //폼이 비어있는 경우
-    // if (!$user_id||!$user_pw||!$user_name) {
-    //     echo "<script>alert('모든 폼을 작성해 주세요.');</script>";
-    //     echo "<script>location.replace('./CreateUser.php');</script>";
-    //     exit;
-    // }
-
     if ( $mysqli === false ) {
 		die("데이터베이스 연결 불가".mysqli_connect_error());
 	} else {
         //바이오는 기본 문구로 삽입
         $sql = "
-        INSERT IGNORE INTO user (User_ID, User_name, User_password, User_num, User_bio) 
+        INSERT IGNORE INTO user (User_ID, User_password, User_name, User_num, User_bio) 
         VALUES ('".$user_id_input."','".$user_pw_input."','".$user_name_input."','".$user_phone_input."','".$user_bio_sample."')
         ";
 
