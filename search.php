@@ -311,7 +311,7 @@
                   echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
                   echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
                   echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.' / </p>';
-                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">찜</p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">북마크</p>';
                   echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Bookmark_count.'</p>'; // 찜 개수 기본값 : 0개
                   echo '      </div>';
                   echo '    </div>';                    
