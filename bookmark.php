@@ -54,14 +54,17 @@
                     die("데이터베이스 연결 실패: " . $conn->connect_error);
                 }
 
+                $itemsPerPage = 8;
+                $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
+
                 // Bookmark 한 식당 정보 가져오기
                 $bookmarkQuery = "SELECT *
                                 FROM Restaurant R
                                 LEFT JOIN Bookmark B ON R.Res_ID = B.Res_ID
                                 WHERE B.User_ID = '$user_ID'
-                                GROUP BY R.Res_ID";
+                                GROUP BY R.Res_ID
+                                LIMIT $offset, $itemsPerPage";
                 $bookmarkResult = $conn->query($bookmarkQuery);
-
 
                 while ($row = $bookmarkResult->fetch_assoc()) {
                     // 식당의 북마크 총합
@@ -79,61 +82,64 @@
                     }
 
                     echo "<div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl'>
-                    <div class='flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white'>
-                      <img src='{$row['Res_img_url']}' class='w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover' />
-                      <div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
-                        <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
-                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
-                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                            20% off
-                          </p>
-                        </div>
-                        <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
-                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
-                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                            Fast
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
-                      <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
-                        <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
-                        if ($row['Category_ID'] == 1){
-                            echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
-                        else if ($row['Category_ID'] == 2){
-                          echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
-                        else if ($row['Category_ID'] == 3){
-                          echo "<img src='./img/pasta.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
-                        else if ($row['Category_ID'] == 4){
-                          echo "<img src='./img/한식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
-                        else if ($row['Category_ID'] == 5){
-                          echo "<img src='./img/일식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
-                        else if ($row['Category_ID'] == 6){
-                          echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                        }
+                            <div class='flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white'>";
+
+                    echo '<a href="res_detail.php?Res_ID=' . $row["Res_ID"] . '">';
+                    echo "<img src='{$row['Res_img_url']}' class='w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover' />";
+                    echo '</a>';
+                              echo"<div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
+                                <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
+                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
+                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
+                                    20% off
+                                  </p>
+                                </div>
+                                <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
+                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
+                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
+                                    Fast
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
+                              <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
+                                <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
+                                  if ($row['Category_ID'] == 1){
+                                      echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
+                                  else if ($row['Category_ID'] == 2){
+                                    echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
+                                  else if ($row['Category_ID'] == 3){
+                                    echo "<img src='./img/pasta.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
+                                  else if ($row['Category_ID'] == 4){
+                                    echo "<img src='./img/한식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
+                                  else if ($row['Category_ID'] == 5){
+                                    echo "<img src='./img/일식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
+                                  else if ($row['Category_ID'] == 6){
+                                    echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                                  }
                           
-                        echo"</div>
-                        <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
-                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
-                          <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
-                            <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>Star</p>
-                            <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
-                        <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
-                          Opens tomorrow
-                        </p>
-                      </div>
-                    </div>
-                  </div>";  
+                                echo"</div>
+                                <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
+                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
+                                  <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
+                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>Star</p>
+                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
+                                <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
+                                  Opens tomorrow
+                                </p>
+                              </div>
+                            </div>
+                          </div>";  
 
                     $counter++;
 
@@ -141,17 +147,23 @@
                         echo "</div>";
                     }
                 }
+                // 다음 페이지로 이동하는 링크 추가
+                echo "<a href='?offset=" . ($offset + $itemsPerPage) . "'>
+                <div class='flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]'
+                style='background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);'>
+                      <p class='flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white'>View</p>
+                </div>
+                </a>";
                 $conn->close();
             ?>
         </div>
         </div>
-        <div
+        <!-- <div
           class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]"
           style="background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);"
         >
-          <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">View All</p>
-          <p class="flex-grow-0 flex-shrink-0 text-sm text-center text-white">CHEVRON-RIGHT</p>
-        </div>
+          <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">View </p>
+        </div> -->
       </div>
       <div class="w-[1546px] h-[350px] absolute left-[-1px] top-[79px] bg-[#d9d9d9]"></div>
       <div class="w-[1537px] h-20">
