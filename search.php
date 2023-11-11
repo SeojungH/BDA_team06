@@ -98,11 +98,17 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                          $isChecked = 'checked="checked"';
-                          if(isset($_POST['category']) and !in_array($itemID, $_POST['category'])){
-                            $isChecked = '';
+                          $isChecked = '';
+                          if(isset($_POST['category'])){ // 검색 결과 페이지에서 필터 및 정렬 적용 버튼을 눌렀을 경우
+                            if(in_array($itemID, $_POST['category'])){ // 체크된 카테고리 모두
+                              $isChecked = 'checked="checked"';
+                            }
+                          } else if (isset($_GET['category_id'])){ // 메인 페이지에서 카테고리를 선택한 경우
+                            if($itemID == $_GET['category_id']){ // 해당 카테고리만
+                              $isChecked = 'checked="checked"';
+                            }
                           }
-                          echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'"'.$isChecked.'class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                          echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                             }
                     } else {
                     echo "쿼리실행안됨".mysqli_error($link);
@@ -152,7 +158,8 @@
                       $item = $row[1];
 
                       $isChecked = '';
-                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
+                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) // 메인페이지에서 카테고리 선택해서 넘어온 경우 --> 기본값 : 사용자가 프로필에 설정한 알러지 정보 모두
+                          or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){ // 검색 결과 페이지에서 필터 및 정렬 적용 버튼을 누른 경우 --> 체크된 알러지 값 모두
                         $isChecked = 'checked="checked"';
                       }
                       echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
@@ -169,9 +176,26 @@
         <!--정렬-->
         <select name="sort" class="flex justify-start items-center w-[150px] absolute left-[728px] top-[282px] px-4 py-2.5 rounded-[10px] bg-[#fefefe]" style="box-shadow: 0px 4px 20px 0 rgba(255, 214, 0, 0.3)">
           <option selected disabled hidden class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">정렬 기준</option>
-          <option value="recent" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>
-          <option value="rate_high" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>
-          <option value="rate_low" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>
+          <?php
+            $isSelected = array("","","");
+            if(isset($_POST["sort"])){ // 검색 결과 페이지에서 (정렬 기준을 선택한 후) 필터 및 정렬 버튼을 눌렀을 때
+              switch($_POST["sort"]){ // 이전에 선택된 값이 선택된 것으로 보여줌
+                case("recent"):
+                  $isSelected[0] = "selected";
+                  break;
+                case("rate_high"):
+                  $isSelected[1] = "selected";
+                  break;
+                case("rate_low"):
+                  $isSelected[2] = "selected";
+                  break;
+              }
+            }
+
+            echo '<option value="recent" '.$isSelected[0].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>';
+            echo '<option value="rate_high" '.$isSelected[1].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>';
+            echo '<option value="rate_low" '.$isSelected[2].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>';
+          ?>
         </select>
 
         <!--필터 및 정렬 적용 버튼-->
