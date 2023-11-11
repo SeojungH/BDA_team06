@@ -158,7 +158,7 @@
                       $item = $row[1];
 
                       $isChecked = '';
-                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) // 메인페이지에서 카테고리 선택해서 넘어온 경우 --> 기본값 : 사용자가 프로필에 설정한 알러지 정보 모두
+                      if((!isset($_POST['allergy']) and !isset($_POST['category']) and in_array($itemID, $user_allergy_ID)) // 메인페이지에서 카테고리 선택해서 넘어온 경우 --> 기본값 : 사용자가 프로필에 설정한 알러지 정보 모두
                           or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){ // 검색 결과 페이지에서 필터 및 정렬 적용 버튼을 누른 경우 --> 체크된 알러지 값 모두
                         $isChecked = 'checked="checked"';
                       }
@@ -220,10 +220,10 @@
 
             // DB에서 필터, 정렬에 맞게 식당 목록 가져오는 SQL문
             $sql .= 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
-                    FROM restaurant R
+                     FROM restaurant R
                       join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
                       on R.Res_ID = AVG_RATE.Res_ID
-                    WHERE ';
+                     WHERE ';
             
             
             // 필터 (카테고리)
@@ -236,12 +236,17 @@
             // 필터 (알러지)
             if(isset($_POST['allergy'])){
               $temp = implode(', ', $_POST['allergy']); // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
-            } else{ //POST로 전달된 값이 없을 때는 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
+              $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                              FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                              WHERE A.Allergy_ID IN ('.$temp.'))';
+            } else if(!isset($_POST['category'])){ //메인페이지에서 카테고리 선택해서 넘어왔을 때 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
               $temp = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
+              $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                              FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                              WHERE A.Allergy_ID IN ('.$temp.'))';
+            } else{ // 알러지 필터 모두 선택 해제 --> 조건 추가할 필요 없음.
             }
-            $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
-                                            FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
-                                            WHERE A.Allergy_ID IN ('.$temp.'))';
+            
 
             // 정렬
             $sort = 'recent'; // 기본값
