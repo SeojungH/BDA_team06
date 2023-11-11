@@ -5,7 +5,7 @@ session_start(); // 세션 시작
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
 
-$resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; // Res_ID 변수 설정
+$resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; 
 
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -97,16 +97,19 @@ if (mysqli_connect_errno()) {
                                 echo "<p>평균 " . $formattedAvgPrice . " 원</p>";
                             } ?>
                         </div>
-                        <div class="bookmark-btn">
-                            <img class="vector-bookmark" src="img/vector-8.svg" />
-                            <div class="text-wrapper-4">식당 찜하기</div>
-                        </div>
+                        <form action="addBookmark.php" method="post">
+                            <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
+                            <button type="submit" class="bookmark-btn">
+                                <img class="vector-bookmark" src="img/vector-8.svg" />
+                                <div class="text-wrapper-4">북마크</div>
+                            </button>
+                        </form>
                     </div>
                     <div class="review-btn">
                         <div class="text"><a href="CreateReview.php">리뷰 쓰기</a></div>
                     </div>
                     <div class="rate-btn">
-                        <div class="text-2"><a href="rating/rating.html">별점 등록</a></div>
+                        <div class="text-2"><a href="rating/rating.php">별점 등록</a></div>
                     </div>
                 </div>
                 <h1 class="menu-2">
@@ -139,21 +142,21 @@ if (mysqli_connect_errno()) {
                         <!-- <div class="icon">tag</div> -->
                         <div class="text-3">
                             <?php
-                            // 메뉴의 Res_menu_ID 찾기
+                          
                             $sql = "SELECT Res_menu_ID FROM res_menu WHERE Res_ID = '$resid'";
                             $res = mysqli_query($mysqli, $sql);
 
                             if ($res) {
-                                // 각 클래스의 알레르기 정보를 저장할 배열 초기화
+                              
                                 $allergies = array();
 
                                 while ($menuIDData = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
                                     $menuID = $menuIDData['Res_menu_ID'];
 
-                                    // 각 클래스의 알레르기 정보를 저장할 변수 초기화
+                                  
                                     $classAllergy = '';
 
-                                    // menu_allergy 테이블을 사용하여 Allergy_ID 찾기
+                                    
                                     $sql = "SELECT Allergy_ID FROM menu_allergy WHERE Res_menu_ID = '$menuID'";
                                     $res2 = mysqli_query($mysqli, $sql);
 
@@ -161,7 +164,7 @@ if (mysqli_connect_errno()) {
                                         while ($allergyIDData = mysqli_fetch_array($res2, MYSQLI_ASSOC)) {
                                             $allergyID = $allergyIDData['Allergy_ID'];
 
-                                            // allergy 테이블에서 Allergy_name 가져오기
+                                          
                                             $sql = "SELECT Allergy_name FROM allergy WHERE Allergy_ID = '$allergyID'";
                                             $res3 = mysqli_query($mysqli, $sql);
 
@@ -175,7 +178,7 @@ if (mysqli_connect_errno()) {
                                     }
                                     $allergies[] = $classAllergy;
                                 }
-                                // 각 클래스의 알레르기 정보를 한 줄에 하나씩 출력
+                                
                                 foreach ($allergies as $allergy) {
                                     echo "<div class='allergy'><div class='icon'>tag</div>  $allergy  </div>";
                                 }
@@ -187,12 +190,12 @@ if (mysqli_connect_errno()) {
             </div>
         </div>
 
-        <div class="text-wrapper-reviews">REVIEWS</div>
+        <div class="text-wrapper-reviews">review</div>
 
         <div class="overlap">
             <div class="review-group">
                 <div class="overlap-group">
-                
+
                     <?php
                     $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
 
@@ -205,7 +208,7 @@ if (mysqli_connect_errno()) {
                     $res = mysqli_query($mysqli, $sql);
 
                     if ($res) {
-                      
+
                         while ($reviewData = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
                             $resReviewID = $reviewData['Res_review_ID'];
                             $userID = $reviewData['User_ID'];
@@ -229,7 +232,7 @@ if (mysqli_connect_errno()) {
 
                                             echo "<div class='review-set'>";
                                             echo "<div class='text-wrapper-7'>$userName</div>";
-                                            
+
                                             $sqlResRate = "SELECT Res_rating FROM res_rate WHERE Res_ID = '$resid' AND User_ID = '$userID'";
                                             $resResRate = mysqli_query($mysqli, $sqlResRate);
 
@@ -263,16 +266,10 @@ if (mysqli_connect_errno()) {
             </div>
         </div>
 
-        <!-- <div class="overlap-wrapper">
-            <div class="overlap-group">
-                
-            </div>
-        </div> -->
-
         <?php
 
         $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
-        // Res_ID를 사용하여 Hospital 테이블에서 Hos_name과 Hos_num 가져오기
+
         $sql = "SELECT h.Hos_name, h.Hos_num
                             FROM restaurant r
                             LEFT JOIN hospital h ON SUBSTRING_INDEX(r.Res_address, ' ', -1) = SUBSTRING_INDEX(h.Hos_address, ' ', -1)
@@ -307,7 +304,7 @@ if (mysqli_connect_errno()) {
                     <img class='image' src='img/image-1.png' />
                     </div>";
             } else {
-                
+
                 echo "<div class='hos'>
                         <div class='text-4'>
                             <div class='content'>
@@ -331,14 +328,14 @@ if (mysqli_connect_errno()) {
                     </div>";
             }
         } else {
-            // 쿼리 실행 중 오류 처리
+
             echo "쿼리 실행 중 오류가 발생했습니다.";
         }
         ?>
 
         <?php
         $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
-        
+
         $sql = "SELECT h.Hos_name, h.Hos_num
                         FROM restaurant r
                         LEFT JOIN hospital h ON SUBSTRING_INDEX(r.Res_address, ' ', -1) = SUBSTRING_INDEX(h.Hos_address, ' ', -1)
@@ -374,7 +371,7 @@ if (mysqli_connect_errno()) {
                     <img class='image' src='img/image-1.png' />
                 </div>";
             } else {
-                
+
                 echo "<div class='hos'>
                     <div class='text-4'>
                         <div class='content'>
@@ -398,14 +395,14 @@ if (mysqli_connect_errno()) {
                 </div>";
             }
         } else {
-            // 쿼리 실행 중 오류 처리
+
             echo "쿼리 실행 중 오류가 발생했습니다.";
         }
         ?>
 
         <?php
         $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
-        // Res_ID를 사용하여 Pharmacy 테이블에서 Drug_name과 Drug_num 가져오기
+
         $sql = "SELECT p.Drug_name, p.Drug_num
                             FROM restaurant r
                             LEFT JOIN pharmacy p ON SUBSTRING_INDEX(r.Res_address, ' ', -1) = SUBSTRING_INDEX(p.Drug_address, ' ', -1)
@@ -441,7 +438,7 @@ if (mysqli_connect_errno()) {
                     <img class='image-2' src='img/drug-1img.png' />
                 </div>";
             } else {
-                
+
                 echo "<div class='drug'>
                             <div class='text-4'>
                             <div class='heading-wrapper'>

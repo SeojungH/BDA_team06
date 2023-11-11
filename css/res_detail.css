@@ -105,7 +105,7 @@
   position: relative;
   width: 20.94px;
   height: 20px;
-  left: -10px;
+  left: -7px;
 }
 
 
@@ -164,12 +164,12 @@
   width: fit-content;
   margin-top: -0.5px;
   font-family: "Inter-Medium", Helvetica;
-  font-weight: 500;
+  font-weight: bold;
   color: #404040;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
-  left: -20px;
+  left: -10px;
   white-space: nowrap;
 }
 
@@ -280,7 +280,7 @@
   font-family: "Poppins-Medium", Helvetica;
   font-weight: bold;
   color: #202020;
-  font-size: 30px;
+  font-size: 27px;
   letter-spacing: 0;
   line-height: normal;
   margin-bottom: 15px;
@@ -470,16 +470,16 @@
   /* overflow: auto;  */
   top: 370px;
   left: 400px;
-  border: 10px solid #FFD233;
+  /* border: 10px solid #FFD233; */
   border-style: double none double none;
   box-sizing: border-box;
 }
 
 .screen .review-set {
-  border: 1px solid white;
-  border-left: 1px solid white;
-  border-bottom: 1px solid white;
-  border-top: 1px solid white;
+  width: 450px;
+  margin-bottom: 10px;
+  background-color: beige;
+    padding: 20px;
 }
 
 /* .screen .overlap-group {
@@ -497,7 +497,7 @@
 .screen .text-wrapper-7 {
   position: relative;
   width: 124px;
-  top: 25px;
+  top: 20px;
   left: 30px;
   font-family: "Gilroy-Medium", Helvetica;
   font-weight: bold;
@@ -511,7 +511,7 @@
 .screen .text-wrapper-8 {
   position: absolute;
   width: 60px;
-  top: 39px;
+  top: 35px;
   left: 86px;
   font-family: "Gilroy-Medium", Helvetica;
   font-weight: 500;
@@ -579,7 +579,7 @@ screeen .img-container img.star {
   letter-spacing: 0;
   line-height: normal;
   left: 30px;
-  top: 5px;
+  top: -3px;
 }
 
 .screen .span {
