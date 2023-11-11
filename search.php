@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-    <div class="w-[1509px] h-[1452px] relative overflow-hidden bg-white">
+    <div class="w-[1509px] h-[1452px] relative bg-white">
       <!--네비게이션 바-->
       <div class="w-[1509px] h-[83.83px]">
         <div class="w-[1509px] h-[83.83px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -46,7 +46,7 @@
       <style>
         .dropdown-content {
             display: none;
-            position: absolute;
+            flex-wrap:wrap;
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -205,9 +205,9 @@
       </form>
 
       <!--식당 목록-->
-      <div class="flex flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
-        <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
-          <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
+      <div style="width:100%;" class="flex flex-wrap:wrap;flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
+        <div style="width:100%;" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
+          <div style="width:100%; flex-wrap:wrap" class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
           <?php
             $link = mysqli_connect("localhost", "team06", "team06", "team06");
             if($link === false)
@@ -262,10 +262,10 @@
                   while(mysqli_stmt_fetch($stmt)){
                     $searchCheck = true;
                     // 식당 정보 출력
-                    echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
+                    echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
                     
                     // 식당 사진
-                    echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
+                    echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative rounded-2xl bg-white">';
                     echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
                     echo '</div>';
 
