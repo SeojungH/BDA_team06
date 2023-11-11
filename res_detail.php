@@ -106,7 +106,7 @@ if (mysqli_connect_errno()) {
                         </form>
                     </div>
                     <div class="review-btn">
-                        <div class="text"><a href="CreateReview.php">리뷰 쓰기</a></div>
+                        <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">리뷰 쓰기</a></div>
                     </div>
                     <div class="rate-btn">
                         <div class="text-2"><a href="rating/rating.php">별점 등록</a></div>
