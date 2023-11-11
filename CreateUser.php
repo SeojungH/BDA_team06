@@ -29,11 +29,11 @@
                 <div class="Register-input-box">
                     <div class="form__group field__id">
                         <input type="text" class="form__field__id" placeholder="user_id" name="user_id" id='user_id' required />
-                        <label for="ID" class="form__label__id">이메일(아이디)</label>
+                        <label for="user_id" class="form__label__id">이메일(아이디)</label>
                     </div>
                     <div class="form__group field__pw">
-                        <input type="text" class="form__field__pw" placeholder="user_pwd" name = "user_pwd" id = "user_pwd" required />
-                        <label for="Password" class="form__label__pw">비밀번호</label>
+                        <input type="text" class="form__field__pw" placeholder="user_pw" name = "user_pw" id = "user_pw" required />
+                        <label for="user_pw" class="form__label__pw">비밀번호</label>
                     </div>
                     <div class="form__group field__name">
                         <input type="text" class="form__field__name" placeholder="user_name" name = "user_name" id = "user_name" required />
