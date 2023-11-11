@@ -256,39 +256,39 @@
             // 쿼리 실행
             if($stmt = mysqli_prepare($link, $sql)){
                 if(mysqli_stmt_execute($stmt)){
-                    mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
-                    $searchCheck = false;
+                  mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
+                  $searchCheck = false;
 
-                    while(mysqli_stmt_fetch($stmt)){
-                      $searchCheck = true;
-                      // 식당 정보 출력
-                      echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
-                      
-                      // 식당 사진
-                      echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
-                      echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
-                      echo '</div>';
+                  while(mysqli_stmt_fetch($stmt)){
+                    $searchCheck = true;
+                    // 식당 정보 출력
+                    echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
+                    
+                    // 식당 사진
+                    echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
+                    echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
+                    echo '</div>';
 
-                      // 아이콘, 식당 이름, 별점
-                      echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
-                      echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
-                      echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
-                      echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
-                      echo '    </div>';
-                      echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
-                      echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
-                      echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
-                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
-                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
-                      echo '      </div>';
-                      echo '    </div>';                    
-                      echo '  </div>';                    
-                      echo '</div>';                    
-                      echo '</a>';                    
-                    }
+                    // 아이콘, 식당 이름, 별점
+                    echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
+                    echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
+                    echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
+                    echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
+                    echo '    </div>';
+                    echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
+                    echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
+                    echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
+                    echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
+                    echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
+                    echo '      </div>';
+                    echo '    </div>';                    
+                    echo '  </div>';                    
+                    echo '</div>';                    
+                    echo '</a>';                    
+                  }
 
-                    if(!$searchCheck) // 검색결과 없음
-                      echo '검색 결과가 없습니다.';
+                  if(!$searchCheck) // 검색결과 없음
+                    echo '검색 결과가 없습니다.';
                 } else {
                 echo "쿼리실행안됨".mysqli_error($link);
                 }
