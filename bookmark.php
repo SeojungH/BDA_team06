@@ -77,6 +77,15 @@
                     $result = $conn->query($query);
                     $row_2 = $result->fetch_assoc();
 
+                    // 식당 평균 별점
+                    $avg_rate_sql = "SELECT (AVG_RATE.Avg_rating) AS avg_rating
+                                    FROM restaurant R
+                                    join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
+                                    on R.Res_ID = AVG_RATE.Res_ID
+                                    WHERE R.Res_ID = '{$row['Res_ID']}'";
+                    $avg_rate_result = $conn->query($avg_rate_sql);
+                    $avg_rate = $avg_rate_result->fetch_assoc();
+                    
                     if ($counter % 4 == 0){
                         echo "<div class='flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4'>";
                     }
@@ -89,17 +98,17 @@
                     echo '</a>';
                               echo"<div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
                                 <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
-                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
-                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                                    20% off
-                                  </p>
+                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>bookmark</p>
+                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>";
+                                     echo $row_2['bookmark_count'];
+                                  echo"</p>
                                 </div>
-                                <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
+                                <!--<div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
                                   <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
                                   <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
                                     Fast
                                   </p>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                             <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
@@ -124,14 +133,22 @@
                                     echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                                   }
                           
-                                echo"</div>
-                                <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
-                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
-                                  <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
-                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>Star</p>
-                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
+                                  echo "</div>
+                                          <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
+                                              <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
+                                              <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
+                                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>별점</p>
+                                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>";
+                                                  
+                                          if ($avg_rate === null) {
+                                              echo 0;
+                                          } else {
+                                              echo $avg_rate['avg_rating'];
+                                          }
+
+                                  echo "</p>
+                                      </div>
                                   </div>
-                                </div>
                               </div>
                               <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
                                 <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
