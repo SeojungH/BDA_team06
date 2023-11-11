@@ -1,0 +1,844 @@
+.screen {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.screen .div {
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 1509px;
+  height: 3497px;
+  position: relative;
+}
+
+.screen .res-info {
+  position: absolute;
+  width: 1509px;
+  height: 357px;
+  top: 80px;
+  left: 0;
+  background-color: #202020;
+}
+
+.screen .frame {
+  display: flex;
+  width: 745px;
+  height: 317px;
+  align-items: center;
+  gap: 60px;
+  position: absolute;
+  top: 50px;
+  left: 63px;
+}
+
+.screen .rectangle {
+  width: 400px;
+  height: 250px;
+  position: relative;
+  object-fit: cover;
+}
+
+.screen .div-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 491px;
+  height: 145px;
+  align-items: flex-start;
+  gap: 10px;
+  position: absolute;
+  top: 58px;
+  left: 460px;
+}
+
+.screen .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  top: 10px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .frame-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  position: absolute;
+  top: 114px;
+  left: 461px;
+}
+
+.screen .frame-2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .frame-3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .vector {
+  position: relative;
+  width: 20.94px;
+  height: 20px;
+  right: 450px;
+}
+
+.screen .vector-bookmark {
+  position: relative;
+  width: 20.94px;
+  height: 20px;
+  left: -10px;
+}
+
+
+
+.screen .vector-8 {
+  position: relative;
+  width: 20.94px;
+  height: 20px;
+  left: -10px;
+}
+
+.screen .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  /* z-index: 3; */
+  left: -450px;
+}
+
+.screen .text-wrapper-3 {
+  position: relative;
+  width: 137px;
+  height: 24px;
+  top: 30px;
+  font-family: "Source Sans Pro-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+.screen .bookmark-btn {
+  display: flex;
+  width: 150px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  position: absolute;
+  top: 175px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px #0000001a;
+}
+
+.screen .text-wrapper-4 {
+  position: relative;
+  width: fit-content;
+  margin-top: -0.5px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #404040;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  left: -20px;
+  white-space: nowrap;
+}
+
+.screen .review-btn {
+  display: flex;
+  width: 151px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 21px 48px;
+  position: absolute;
+  top: 233px;
+  left: 693px;
+  background-color: var(--x);
+  border-radius: 8px;
+  font-style: normal;
+}
+
+.screen .text {
+  position: relative;
+  width: fit-content;
+  margin-top: -6px;
+  margin-bottom: -4px;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+  transform: none;
+  font-family: var(--button-bold-font-family);
+  font-weight: var(--button-bold-font-weight);
+  color: var(--themewhite);
+  font-size: var(--button-bold-font-size);
+  text-align: center;
+  letter-spacing: var(--button-bold-letter-spacing);
+  line-height: var(--button-bold-line-height);
+  white-space: nowrap;
+  font-style: var(--button-bold-font-style);
+}
+
+.screen .rate-btn {
+  display: flex;
+  width: 149px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 21px 48px;
+  position: absolute;
+  top: 233px;
+  left: 865px;
+  background-color: var(--x);
+  border-radius: 8px;
+}
+
+.screen .text-2 {
+  position: relative;
+  width: fit-content;
+  margin-top: -7px;
+  margin-bottom: -5px;
+  margin-left: -12.5px;
+  margin-right: -12.5px;
+  font-family: "Source Sans Pro-Bold", Helvetica;
+  font-weight: 700;
+  color: var(--themewhite);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.screen .img {
+  width: 128px;
+  height: 128px;
+  position: relative;
+  object-fit: cover;
+}
+
+.screen .menu-2 {
+  display: flex;
+  width: 1300px;
+  max-height: 900px;
+  overflow: auto;
+  /* 내용이 넘칠 경우 스크롤 표시 */
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+  position: absolute;
+  top: 480px;
+  left: 220px;
+}
+
+.screen .frame-4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  left: 50px;
+  flex: 0 0 auto;
+  padding: 10px;
+}
+
+.screen .p {
+  position: relative;
+  width: 257px;
+  margin-top: -40px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: bold;
+  color: #202020;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-bottom: 15px;
+  background-color: #f8f8f8;
+  background-size: cover;
+  padding: 30px;
+}
+
+.screen .frame-5 {
+  display: flex;
+  width: 257px;
+  align-items: center;
+  gap: 85px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #808080;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .frame-6 {
+  display: flex;
+  width: 109px;
+  height: 22px;
+  margin-top: -5px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 54px;
+  position: relative;
+  margin-bottom: 5px;
+
+}
+
+
+.screen .frame-4 table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.screen .frame-4 td.p {
+  text-align: center;
+}
+
+.screen .frame-4 td.frame-6 {
+  margin-right: 10px;
+  /* 메뉴 이름과 가격 사이에 오른쪽 마진 추가 */
+}
+
+
+.screen .frame-7 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  /* background-color: #f8f8f8;
+    padding: 10px; */
+}
+
+.screen .vector-2 {
+  position: relative;
+  width: 21.5px;
+  height: 21.5px;
+  margin-left: 700px;
+  margin-bottom: 20px;
+  margin-top: -145px;
+}
+
+.screen .text-wrapper-6 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  opacity: 1;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 25px;
+  letter-spacing: 0;
+  line-height: normal;
+  left: 0px;
+  margin-bottom: 20px;
+  margin-top: -150px;
+  /* background-color: #f8f8f8;
+    padding: 10px; */
+}
+
+.screen .discount {
+  display: flex;
+  width: 150px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 70px;
+  left: 800px;
+  /* background-color: #f17228; */
+  border-radius: 8px;
+}
+
+.screen .discount .allergy {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 120px;
+  font-size: 25px;
+  background-color: #f17228;
+  padding: 25px;
+  font-weight: bold;
+}
+
+.screen .discount .allergy .icon {
+  margin-right: 5px;
+}
+
+.screen .allergies {
+  display: flex;
+  flex-direction: column;
+  /* 알레르기 정보를 세로로 정렬 */
+}
+
+.screen .icon {
+  position: relative;
+  width: fit-content;
+  font-family: "Font Awesome 5 Free-Solid", Helvetica;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--themewhite);
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 21.6px;
+  white-space: nowrap;
+}
+
+.screen .text-3 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Source Sans Pro-Bold", Helvetica;
+  font-weight: 700;
+  color: var(--themewhite);
+  font-size: 22px;
+  letter-spacing: 0;
+  line-height: 26.4px;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen .overlap {
+  position: absolute;
+  width: 690px;
+  max-height: 410px;
+  
+  /* overflow: auto;   */
+  top: 1334px;
+  left: -158px;
+}
+
+
+.screen .text-wrapper-reviews {
+  position: absolute;
+  width: 404px;
+  top: 1586px;
+  text-align: center;
+  font-weight: 500;
+  color: orange;
+  font-size: 55px;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+.screen .review-group {
+  position: absolute;
+  columns : 2;
+  width: 1050px;
+  height: 300px;
+  /* overflow: auto;  */
+  top: 370px;
+  left: 400px;
+  border: 10px solid #FFD233;
+  border-style: double none double none;
+  box-sizing: border-box;
+}
+
+.screen .review-set {
+  border: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}
+
+/* .screen .overlap-group {
+  position: relative;
+  top: 50%;
+  left: 40%;
+  width: 498px;
+  height: 410px;
+  background-color: #ffffff;
+  /* border: 1px solid;
+  border-color: #0000000d; 
+} */
+
+
+.screen .text-wrapper-7 {
+  position: relative;
+  width: 124px;
+  top: 25px;
+  left: 30px;
+  font-family: "Gilroy-Medium", Helvetica;
+  font-weight: bold;
+  color: #000000;
+  font-size: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  /* padding: 5px; */
+}
+
+.screen .text-wrapper-8 {
+  position: absolute;
+  width: 60px;
+  top: 39px;
+  left: 86px;
+  font-family: "Gilroy-Medium", Helvetica;
+  font-weight: 500;
+  color: #676767;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .img-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: -10px;
+  margin-left: 100px;
+}
+
+screeen .img-container img.star {
+  margin-right: 5px;
+  /* 각 별 이미지 사이의 여백 조절 */
+}
+
+/* .screen .star-2 {
+  left: 105px;
+  position: absolute;
+  width: 14px;
+  height: 16px;
+  top: 60px;
+}
+
+.screen .star-3 {
+  left: 123px;
+  position: absolute;
+  width: 14px;
+  height: 16px;
+  top: 60px;
+}
+
+.screen .star-4 {
+  left: 141px;
+  position: absolute;
+  width: 14px;
+  height: 16px;
+  top: 60px;
+} */
+
+/* .screen .flexcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  position: absolute;
+  width: 455px;
+  height: 82px;
+  top: 99px;
+  left: 28px;
+} */
+
+.screen .span-wrapper {
+  position: relative;
+  align-self: stretch;
+  font-family: "Gilroy-Regular", Helvetica;
+  font-weight: 400;
+  color: #3d3d3d;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+  left: 30px;
+  top: 5px;
+}
+
+.screen .span {
+  font-family: "Gilroy-Regular", Helvetica;
+  font-weight: 400;
+  color: #3d3d3d;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.screen .reviews {
+  position: absolute;
+  width: 584px;
+  height: 368px;
+  top: 0;
+  left: 0;
+}
+
+.screen .review-set {
+  display: flex;
+  flex-direction: column;
+  /* 각 리뷰 세트 내의 요소들을 세로로 배열 */
+  gap: 10px;
+  /* 요소들 간의 간격 조절 */
+}
+
+.screen .overlap-wrapper {
+  position: absolute;
+  width: 504px;
+  height: 215px;
+  top: 1584px;
+  left: 759px;
+  border: 2px solid #000;
+  box-sizing: border-box;
+}
+
+.screen .hos {
+  position: absolute;
+  width: 1520px;
+  height: 306px;
+  top: 2169px;
+  left: -12px;
+  background-color: #f1f1f1;
+}
+
+.screen .text-4 { /*병원과 약국 글자 */
+  display: flex;
+  flex-direction: column;
+  width: 459px;
+  align-items: flex-start;
+  gap: 40px;
+  position: absolute;
+  top: 80px;
+  left: 475px;
+}
+
+.screen .content {
+  display: flex;
+  flex-direction: column;
+  width: 554px;
+  align-items: flex-start;
+  gap: 22px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-right: -95px;
+}
+
+.screen .div-wrapper-2 {
+  display: flex;
+  flex-direction: column;
+  width: 362px;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .text-wrapper-9 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat-Bold", Helvetica;
+  font-weight: 700;
+  color: #1b1b1b;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: 45.8px;
+  white-space: nowrap;
+}
+
+.screen .address {
+  display: flex;
+  width: 579.18px;
+  align-items: flex-start;
+  gap: 50px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-right: -120.18px;
+}
+
+.screen .element {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .vector-wrapper {
+  position: relative;
+  width: 59.09px;
+  height: 59.09px;
+  border-radius: 29.54px;
+  border: 1px solid;
+  border-color: #0fe3af;
+}
+
+.screen .vector-3 {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 16px;
+  left: 16px;
+}
+
+.screen .text-5 {
+  position: relative;
+  width: 206px;
+  height: 48.59px;
+  margin-right: -4px;
+}
+
+.screen .text-wrapper-10 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Lato-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #1b1b1b;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 19.9px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-11 {
+  position: absolute;
+  top: 21px;
+  left: 0;
+  font-family: "Lato-Bold", Helvetica;
+  font-weight: 700;
+  color: #1b1b1b;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 28.4px;
+  white-space: nowrap;
+}
+
+.screen .image {
+  width: 192px;
+  height: 200px;
+  top: 39px;
+  left: 224px;
+  position: absolute;
+  object-fit: cover;
+}
+
+.screen .hos-2 {
+  position: absolute;
+  width: 1125px;
+  height: 306px;
+  top: 1978px;
+  left: -10px;
+  background-color: #f1f1f1;
+}
+
+.screen .drug {
+  position: absolute;
+  width: 1520px;
+  height: 306px;
+  top: 2600px;
+  left: -12px;
+  background-color: #f1f1f1;
+}
+
+.screen .heading-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 554px;
+  align-items: flex-start;
+  gap: 22px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-right: -95px;
+  background-color: #f1f1f1;
+}
+
+.screen .image-2 {
+  width: 184px;
+  height: 184px;
+  top: 53px;
+  left: 230px;
+  position: absolute;
+  object-fit: cover;
+}
+
+.screen .overlap-2 {
+  position: absolute;
+  width: 1125px;
+  height: 306px;
+  top: 2736px;
+  left: -10px;
+}
+
+.screen .drug-2 {
+  position: absolute;
+  width: 1520px;
+  height: 306px;
+  top: 0;
+  left: 0;
+  background-color: #f1f1f1;
+}
+
+.screen .drug-img {
+  position: absolute;
+  width: 184px;
+  height: 184px;
+  top: 61px;
+  left: 230px;
+  object-fit: cover;
+}
+
+.screen .text-wrapper-12 {
+  position: absolute;
+  width: 404px;
+  top: 2086px;
+  left: 462px;
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 500;
+  color: #000000;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: 48px;
+  white-space: nowrap;
+}
+
+.screen .banner {
+  position: absolute;
+  width: 1600px;
+  height: 80px;
+  top: 0;
+  left: -3px;
+  background-color: var(--x);
+}
+
+.screen .line {
+  width: 100%;
+  /* 가로 전체 너비를 차지하도록 변경 */
+  border-top: 2px solid black;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
