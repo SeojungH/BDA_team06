@@ -217,6 +217,8 @@
             $link = mysqli_connect("localhost", "team06", "team06", "team06");
             if($link === false)
                 die('연결안됨'.mysqli_connect_error());
+
+                mysqli_query($link, "SET NAMES utf8");
             
             // DB에서 식당별 찜 개수 가져오는 SQL문
             $sql = 'SELECT Res_ID, COUNT(User_ID) AS bookmark_count
