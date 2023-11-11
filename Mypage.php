@@ -39,7 +39,6 @@ $_SESSION["SESSION_User_name"]
       <script type="text/javascript">   
       $(document).ready( function() {
       $("#nav").load("html/nav.html");
-      // $("#footers").load("common/footer.html");
       });
       </script>
       <title>
@@ -105,24 +104,26 @@ $_SESSION["SESSION_User_name"]
                         $allergyName = $row[1];
 
                         // 아직 작동 안됨
-                        $sql_2 = "
-                        SELECT * FROM User_Allergy WHERE User_ID ='".$User_ID."'
-                        ";
-                        $row_2 = mysqli_query($mysqli, $sql_2);
-                        $allergyCheck = mysqli_fetch_row($row_2);
-                        if (in_array($allergyID,$allergyCheck)) { //사용자가 이 알러지를 이미 체크해두었음
-                          $CHECK = "on";
-                        } else {
-                          $CHECK = "off";
-                        }
+                        // $sql_2 = "
+                        // SELECT * FROM User_Allergy WHERE User_ID ='".$User_ID."'
+                        // ";
+                        // echo $sql_2;
+                        // $row_2 = mysqli_query($mysqli, $sql_2);
+                        // $allergyCheck = mysqli_fetch_row($row_2);
+                        // if (in_array($allergyID,$allergyCheck)) { //사용자가 이 알러지를 이미 체크해두었음
+                        //   $CHECK = "on";
+                        // } else {
+                        //   $CHECK = "off";
+                        // }
 
                         // $allergyCheck
                         echo '
-                        <li><input type="checkbox" checked="'.$CHECK.'" id="'.$allergyID.'" value="Rainbow Dash"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
+                        <li><input type="checkbox" name="allergy_form[]" checked="off" id="'.$allergyID.'" value="'.$allergyID.'"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
                         ';
                       }
                     }
                   }
+                mysqli_free_result($result);
                 mysqli_close($mysqli);
               ?>
               </ul>
