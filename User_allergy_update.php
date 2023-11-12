@@ -13,6 +13,17 @@ session_start();
 //유저 아이디
 $User_ID = $_SESSION["SESSION_User_ID"];
 
+$sql = 'SELECT * FROM allergy';
+
+if(mysqli_multi_query($mysqli, $sql)){ 
+    if ($result = mysqli_store_result($mysqli)) {
+        while ($row = mysqli_fetch_row($result)) {
+        $allergyID = $row[0];
+        $allergyName = $row[1];
+        }
+    }
+}
+
 //알러지 체크박스 폼 정보
 for ($i=0; $i<count($_POST['allergy_form']); $i++) {
     $allergy = $_POST['allergy_form'];
