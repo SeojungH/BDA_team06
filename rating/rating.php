@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // 중복이 아닌 경우에만 삽입
     if (mysqli_query($mysqli, $insertQuery)) {
         echo "<script>alert('별점이 성공적으로 등록되었습니다.');</script>";
         echo "<script>history.back();</script>";

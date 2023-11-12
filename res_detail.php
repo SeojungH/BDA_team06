@@ -348,72 +348,7 @@ if (mysqli_connect_errno()) {
         }
         ?>
 
-        <?php
-        $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
-
-        $sql = "SELECT h.Hos_name, h.Hos_num
-                        FROM restaurant r
-                        LEFT JOIN hospital h ON SUBSTRING_INDEX(r.Res_address, ' ', -1) = SUBSTRING_INDEX(h.Hos_address, ' ', -1)
-                        WHERE r.Res_ID = '$resid'";
-
-        $res = mysqli_query($mysqli, $sql);
-
-        if ($res) {
-            $hospitalData = mysqli_fetch_array($res, MYSQLI_ASSOC);
-
-            if ($hospitalData) {
-                $hosName = $hospitalData['Hos_name'];
-                $hosNum = $hospitalData['Hos_num'];
-                echo "<div class='hos'>
-                    <div class='text-4'>
-                        <div class='content'>
-                            <div class='div-wrapper-2'>
-                                <div class='div-wrapper-2'>
-                                    <div class='text-wrapper-9'>$hosName</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='address'>
-                            <div class='element'>
-                                <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
-                                <div class='text-5'>
-                                    <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'> $hosNum</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <img class='image' src='img/image-1.png' />
-                </div>";
-            } else {
-
-                echo "<div class='hos'>
-                    <div class='text-4'>
-                        <div class='content'>
-                            <div class='div-wrapper-2'>
-                                <div class='div-wrapper-2'>
-                                    <div class='text-wrapper-9'>데이터 없음</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='address'>
-                            <div class='element'>
-                                <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
-                                <div class='text-5'>
-                                    <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <img class='image' src='img/image-1.png' />
-                </div>";
-            }
-        } else {
-
-            echo "쿼리 실행 중 오류가 발생했습니다.";
-        }
-        ?>
+    
 
         <?php
         $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';

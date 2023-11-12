@@ -108,8 +108,6 @@
   left: -7px;
 }
 
-
-
 .screen .vector-8 {
   position: relative;
   width: 20.94px;
@@ -127,7 +125,6 @@
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
-  /* z-index: 3; */
   left: -450px;
 }
 
@@ -354,8 +351,6 @@
   flex: 0 0 auto;
   margin-top: -1px;
   margin-bottom: -1px;
-  /* background-color: #f8f8f8;
-    padding: 10px; */
 }
 
 .screen .vector-2 {
@@ -393,7 +388,6 @@
   position: absolute;
   top: 70px;
   left: 800px;
-  /* background-color: #f17228; */
   border-radius: 8px;
 }
 
@@ -448,8 +442,6 @@
   position: absolute;
   width: 690px;
   max-height: 410px;
-  
-  /* overflow: auto;   */
   top: 1334px;
   left: -158px;
 }
@@ -480,21 +472,11 @@
 
 .screen .review-set {
   width: 450px;
+  margin: 0 auto;
   margin-bottom: 10px;
   background-color: beige;
-    padding: 20px;
+  padding: 20px;
 }
-
-/* .screen .overlap-group {
-  position: relative;
-  top: 50%;
-  left: 40%;
-  width: 498px;
-  height: 410px;
-  background-color: #ffffff;
-  /* border: 1px solid;
-  border-color: #0000000d; 
-} */
 
 
 .screen .text-wrapper-7 {
@@ -533,44 +515,7 @@
 
 screeen .img-container img.star {
   margin-right: 5px;
-  /* 각 별 이미지 사이의 여백 조절 */
 }
-
-/* .screen .star-2 {
-  left: 105px;
-  position: absolute;
-  width: 14px;
-  height: 16px;
-  top: 60px;
-}
-
-.screen .star-3 {
-  left: 123px;
-  position: absolute;
-  width: 14px;
-  height: 16px;
-  top: 60px;
-}
-
-.screen .star-4 {
-  left: 141px;
-  position: absolute;
-  width: 14px;
-  height: 16px;
-  top: 60px;
-} */
-
-/* .screen .flexcontainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  position: absolute;
-  width: 455px;
-  height: 82px;
-  top: 99px;
-  left: 28px;
-} */
 
 .screen .span-wrapper {
   position: relative;
@@ -604,9 +549,7 @@ screeen .img-container img.star {
 .screen .review-set {
   display: flex;
   flex-direction: column;
-  /* 각 리뷰 세트 내의 요소들을 세로로 배열 */
   gap: 10px;
-  /* 요소들 간의 간격 조절 */
 }
 
 .screen .overlap-wrapper {
@@ -628,7 +571,8 @@ screeen .img-container img.star {
   background-color: #f1f1f1;
 }
 
-.screen .text-4 { /*병원과 약국 글자 */
+.screen .text-4 {
+  /*병원과 약국 글자 */
   display: flex;
   flex-direction: column;
   width: 459px;
@@ -840,7 +784,6 @@ screeen .img-container img.star {
 
 .screen .line {
   width: 100%;
-  /* 가로 전체 너비를 차지하도록 변경 */
   border-top: 2px solid black;
   margin: 10px 0;
   box-sizing: border-box;
