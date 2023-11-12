@@ -125,8 +125,8 @@ if (mysqli_connect_errno()) {
                                 $menuName = $menuData['Res_menu_name'];
                                 $menuPrice = $menuData['Res_menu_price'];
 
-                                echo "<img class='menu-icon' src='img/healthy-food.png' alt='Healthy Food Icon' />";
-                                echo "<p class='p'>$menuName</p>";
+                                echo "<img class='menu-icon' src='img/res_icon.png' alt='Food Icon' />";
+                                echo "<p class='p'>&nbsp;&nbsp;&nbsp;$menuName</p>";
                                 echo "<div class='frame-6'>";
                                 echo "<div class='frame-7'>";
                                 echo "<img class='vector-2' src='img/vector-4.svg' />";

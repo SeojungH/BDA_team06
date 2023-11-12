@@ -252,7 +252,6 @@
   width: 1300px;
   max-height: 900px;
   overflow: auto;
-  /* 내용이 넘칠 경우 스크롤 표시 */
   align-items: center;
   gap: 30px;
   padding: 20px;
@@ -273,8 +272,17 @@
   padding: 10px;
 }
 
+.screen .menu-icon {
+  position: relative;
+  left: -70px;
+  top: 50px;
+  width: 60px;
+  height: 60px;
+}
+
 .screen .p {
   position: relative;
+  left: 20px;
   width: 257px;
   margin-top: -40px;
   font-family: "Poppins-Medium", Helvetica;
