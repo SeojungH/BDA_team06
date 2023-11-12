@@ -1,14 +1,15 @@
 <?php
-// 데이터베이스 연결
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
+
+//한글 깨짐 오류 인코딩
+mysqli_query($mysqli, "SET NAMES utf8");			
+
 if(mysqli_connect_errno()){
 printf("Connection failed: %s\n", mysqli_connect_error());
 exit();
 }
-
-//세션 사용 로그인
 session_name('로그인');
-session_start();
+session_start(); //세션 시작
 
 //유저 아이디
 $User_ID = $_SESSION["SESSION_User_ID"];

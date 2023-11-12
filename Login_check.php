@@ -35,12 +35,12 @@
             // ';
 
             // 임시로 마이페이지에 연결 중
-            echo "<script>location.replace('./Mypage.php');</script>";
+            echo "<script>location.replace('./mainpage.php');</script>";
         } else { //비밀번호 오류
             echo "<script>alert('아이디 혹은 비밀번호가 틀립니다.');</script>";
             echo "<script>location.replace('./Login.php');</script>";
         }
-    } else { //아이디가 존재하지 않음
+    } else { //아이디가 존재하지 않음 (이거 체크 안되는 중)
         echo "<script>alert('아이디가 존재하지 않습니다.');</script>";
         echo "<script>location.replace('./Login.php');</script>";
     }

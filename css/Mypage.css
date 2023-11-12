@@ -22,7 +22,14 @@ body {
     position: relative;
     top: -100px;
     margin: 0 auto;
+    width:200px;
+
     /* max-width: 1170px; */
+}
+
+.profile-circle-img-wrap:hover {
+    transition: all 0.3s ease 0s;
+    transform: scale(1.2);
 }
 
 .profile-circle-img {
@@ -31,6 +38,7 @@ body {
     height: 200px;
     border: 5px solid rgb(235, 217, 173);
     border-radius: 50%;
+    cursor:pointer;
     position: relative;
 }
 
@@ -106,7 +114,7 @@ ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
 ul.ks-cboxtags li input[type="checkbox"]:checked + label {
     border: 2px solid #1bdbf8;
     background-color: #12bbd4;
-    color: #fff;
+    color: #ffffff;
     transition: all .2s;
 }
 
@@ -142,7 +150,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 }
 
 .profile-bio-content {
-    margin-top: 30px;
+    /* margin-top: 30px; */
     color: #adadad;
 }
 
