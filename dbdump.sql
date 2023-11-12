@@ -98,8 +98,8 @@ DROP TABLE IF EXISTS `hospital`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hospital` (
   `Hos_ID` varchar(10) NOT NULL,
-  `Hos_address` varchar(20) NOT NULL,
   `Hos_name` varchar(10) NOT NULL,
+  `Hos_address` varchar(20) NOT NULL,
   `Hos_num` varchar(20) NOT NULL,
   PRIMARY KEY (`Hos_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
