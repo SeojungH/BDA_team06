@@ -1,4 +1,6 @@
 <?php
+
+session_name('로그인');
 session_start();
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -10,14 +12,11 @@ if (mysqli_connect_errno()) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $userID = isset($_SESSION['User_ID']) ? $_SESSION['User_ID'] : '';
+    $userID = isset($_SESSION['SESSION_User_ID']) ? $_SESSION['SESSION_User_ID'] : '';
 
     $resID = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; 
-    // $resID = isset($_POST['Res_ID']) ? $_POST['Res_ID'] : '';
-
 
     $selectedRating = isset($_POST['selectedRating']) ? $_POST['selectedRating'] : '';
-
   
     $currentDate = date("Y-m-d");
 
