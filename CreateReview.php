@@ -11,6 +11,7 @@
 
     // session_name('로그인');
     session_start(); //세션 시작
+    $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@
     </head>
     <body>
         <div class ="container">
-            <form class = "review-box" action = "CreateReview_check.php" method="POST">
+            <form class = "review-box" action = "CreateReview_check.php?Res_ID=<?php echo urlencode($resid); ?>" method="POST">
                 <div class="container">
                     <div class = "create-review-desc"> 남길 리뷰 코멘트를 모두 선택하세요! </div>
                     <ul class="ks-cboxtags">
@@ -47,7 +48,7 @@
                                         $Res_review_item_ID = $row[0];
                                         $Res_review_template = $row[1];
                                         echo '
-                                        <li><input type="checkbox" id="'.$Res_review_item_ID.'" value="Rainbow Dash"><label for="'.$Res_review_item_ID.'">'.$Res_review_template.'</label></li>
+                                        <li><input type="checkbox" name = "review_form[]" id="'.$Res_review_item_ID.'" value="'.$Res_review_item_ID.'"><label for="'.$Res_review_item_ID.'">'.$Res_review_template.'</label></li>
                                         ';
                                     }
                                 }
@@ -58,7 +59,7 @@
                     </ul>
                 </div>
                 <div class="btn-wrap-create-review">
-                        <button class="btn-create-review" onclick = "location.href='User_allergy_update.php'">리뷰 등록</button>
+                        <button class="btn-create-review" type="submit">리뷰 등록</button>
                 </div>
             </form>
         </div>
