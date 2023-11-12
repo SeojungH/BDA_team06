@@ -48,8 +48,8 @@ CREATE TABLE `Category` (
 
 CREATE TABLE `Hospital` (
 	`Hos_ID`	VARCHAR(10)	NOT NULL,
-	`Hos_address`	VARCHAR(20)	NOT NULL,
 	`Hos_name`	VARCHAR(10)	NOT NULL,
+	`Hos_address`	VARCHAR(20)	NOT NULL,
 	`Hos_num`	VARCHAR(20)	NOT NULL
 );
 
