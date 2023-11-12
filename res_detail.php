@@ -1,6 +1,6 @@
 <?php
 
-// session_name('로그인');
+session_name('로그인');
 session_start(); // 세션 시작
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -97,7 +97,7 @@ if (mysqli_connect_errno()) {
                                 echo "<p>평균 " . $formattedAvgPrice . " 원</p>";
                             } ?>
                         </div>
-                        <form action="addBookmark.php" method="post">
+                        <form action="addBookmark.php?Res_ID=<?php echo urlencode($resid); ?>" method="post">
                             <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
                             <button type="submit" class="bookmark-btn">
                                 <img class="vector-bookmark" src="img/vector-8.svg" />
@@ -109,7 +109,7 @@ if (mysqli_connect_errno()) {
                         <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">리뷰 쓰기</a></div>
                     </div>
                     <div class="rate-btn">
-                        <div class="text-2"><a href="rating/rating.php">별점 등록</a></div>
+                        <div class="text-2"><a href="rating/rating.php?Res_ID=<?php echo urlencode($resid); ?>">별점 등록</a></div>
                     </div>
                 </div>
                 <h1 class="menu-2">

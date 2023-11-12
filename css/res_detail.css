@@ -468,10 +468,9 @@
 
 .screen .review-group {
   position: absolute;
-  columns : 2;
   width: 1050px;
   height: 300px;
-  /* overflow: auto;  */
+  overflow: auto;
   top: 370px;
   left: 400px;
   /* border: 10px solid #FFD233; */

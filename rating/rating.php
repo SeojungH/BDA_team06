@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $userID = isset($_SESSION['User_ID']) ? $_SESSION['User_ID'] : '';
 
-
-    $resID = isset($_POST['Res_ID']) ? $_POST['Res_ID'] : '';
+    $resID = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; 
+    // $resID = isset($_POST['Res_ID']) ? $_POST['Res_ID'] : '';
 
 
     $selectedRating = isset($_POST['selectedRating']) ? $_POST['selectedRating'] : '';
