@@ -1,3 +1,5 @@
+<!-- 2076456 황서정 -->
+
 <?php
 
 session_name('로그인');
@@ -27,16 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $checkDuplicateResult = mysqli_query($mysqli, $checkDuplicateQuery);
 
     if (mysqli_num_rows($checkDuplicateResult) > 0) {
-        echo "<script>alert('이미 별점을 부여하셨습니다.');</script>";
+        echo "<script>alert('Already rated');</script>";
         echo "<script>history.back();</script>";
         exit();
     }
 
     if (mysqli_query($mysqli, $insertQuery)) {
-        echo "<script>alert('별점이 성공적으로 등록되었습니다.');</script>";
+        echo "<script>alert('SUCCESS');</script>";
         echo "<script>history.back();</script>";
     } else {
-        echo "<script>alert('별점 등록 중 오류가 발생했습니다.');</script>";
+        echo "<script>alert('FAIL: ERROR');</script>";
         echo "<script>history.back();</script>";
     }
     exit();
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>별점 주기</title>
+    <title>Star Rating</title>
     <style>
         body {
             background-color: white;
@@ -135,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <button onclick="openModal()">별점 주기</button>
+    <button onclick="openModal()">Star Rating</button>
     <div>★★★★★</div>
 
     <div id="myModal" class="modal">
@@ -146,19 +148,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                 <select name="selectedRating">
-                    <option value="1">1점</option>
-                    <option value="2">2점</option>
-                    <option value="3">3점</option>
-                    <option value="4">4점</option>
-                    <option value="5">5점</option>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="5">★★★★★</option>
                 </select>
 
 
-                <button type="submit">별점 주기</button>
+                <button type="submit">submit</button>
             </form>
 
 
-            <button3 onclick="closeModal()">닫기</button3>
+            <button3 onclick="closeModal()">close</button3>
         </div>
     </div>
 

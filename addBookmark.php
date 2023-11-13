@@ -1,3 +1,5 @@
+<!-- 2076456 황서정 -->
+
 <?php
 
 session_name('로그인');
@@ -20,17 +22,17 @@ if (mysqli_connect_errno()) {
     $checkResult = mysqli_query($mysqli, $checkQuery);
 
     if ($checkResult && mysqli_num_rows($checkResult) > 0) {
-        echo "<script>alert('이 리소스는 이미 북마크되었습니다.');</script>";
+        echo "<script>alert('Already bookmarked');</script>";
         echo "<script>history.back();</script>";
     } else {
         if (mysqli_query($mysqli, $insertQuery)) {
-            echo "<script>alert('북마크 성공');</script>";
+            echo "<script>alert('SUCCESS');</script>";
             echo "<script>history.back();</script>";
         } else {
 
-            error_log("북마크 실패: " . mysqli_error($mysqli));
+            error_log("FAIL: " . mysqli_error($mysqli));
 
-            echo "<script>alert('북마크 실패');</script>";
+            echo "<script>alert('FAIL');</script>";
             echo "<script>history.back();</script>";
         }
     }

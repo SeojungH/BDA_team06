@@ -1,7 +1,9 @@
+<!-- 2076456 황서정 -->
+
 <?php
 
 session_name('로그인');
-session_start(); // 세션 시작
+session_start(); 
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
 
@@ -35,7 +37,7 @@ if (mysqli_connect_errno()) {
             }
         } while (mysqli_next_result($mysqli));
     } else {
-        echo "다중 쿼리 실행 중 오류가 발생했습니다.";
+        echo "Multi Query Error";
     }
 
     $sql = "SELECT * FROM restaurant WHERE Res_ID = '$resid'";
@@ -47,10 +49,10 @@ if (mysqli_connect_errno()) {
         $resname = $restaurantData['Res_name'];
         if ($restaurantData !== null) {
         } else {
-            echo "레코드를 찾지 못했습니다.";
+            echo "Can't find the records";
         }
     } else {
-        echo "쿼리 실행 중 오류가 발생했습니다.";
+        echo "Query Error";
     }
 }
 ?>
@@ -84,7 +86,7 @@ if (mysqli_connect_errno()) {
                                     <div class="text-wrapper-2">
                                         <?php if (isset($newArray[2][0]['avg_rating'])) {
                                             $formattedAvgRat = number_format($newArray[2][0]['avg_rating'], 1);
-                                            echo "<p>" . $formattedAvgRat . " 점</p>";
+                                            echo "<p>" . $formattedAvgRat . " star</p>";
                                         }
                                         ?>
                                     </div>
@@ -94,23 +96,23 @@ if (mysqli_connect_errno()) {
                         <div class="text-wrapper-3">
                             <?php if (isset($newArray[3][0]['avg_price'])) {
                                 $formattedAvgPrice = number_format($newArray[3][0]['avg_price'], 0);
-                                echo "<p>평균 " . $formattedAvgPrice . " 원</p>";
+                                echo "<p>평균 " . $formattedAvgPrice . " won</p>";
                             } ?>
                         </div>
                         <form action="addBookmark.php?Res_ID=<?php echo urlencode($resid); ?>" method="post">
                             <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
                             <button type="submit" class="bookmark-btn">
                                 <img class="vector-bookmark" src="img/vector-8.svg" />
-                                <div class="text-wrapper-4">북마크</div>
+                                <div class="text-wrapper-4">Bookmark</div>
                             </button>
                         </form>
                     </div>
                     <div class="review-btn">
-                        <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">리뷰 쓰기</a></div>
+                        <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">Write Review</a></div>
                     </div>
                     <div class="rate-btn">
                         <div class="text-2">
-                            <a href="#" onclick="openPopup()">별점 등록</a>
+                            <a href="#" onclick="openPopup()">Star Rate</a>
                         </div>
                     </div>
 
@@ -145,7 +147,7 @@ if (mysqli_connect_errno()) {
                                 echo "<div class='frame-6'>";
                                 echo "<div class='frame-7'>";
                                 echo "<img class='vector-2' src='img/vector-4.svg' />";
-                                echo "<div class='text-wrapper-6'>$menuPrice 원</div>";
+                                echo "<div class='text-wrapper-6'>$menuPrice won</div>";
                                 echo "</div>";
                                 echo "</div>";
                             }
@@ -154,7 +156,6 @@ if (mysqli_connect_errno()) {
                     </div>
 
                     <div class="discount">
-                        <!-- <div class="icon">tag</div> -->
                         <div class="text-3">
                             <?php
 
@@ -267,14 +268,14 @@ if (mysqli_connect_errno()) {
                                                     echo "</div>";
                                                 }
                                             }
-                                            echo "</div>"; // end of review-set
+                                            echo "</div>"; 
                                         }
                                     }
                                 }
                             }
                         }
                     } else {
-                        echo "쿼리 실행 중 오류가 발생했습니다.";
+                        echo "Query Error";
                     }
                     ?>
                 </div>
@@ -325,7 +326,7 @@ if (mysqli_connect_errno()) {
                             <div class='content'>
                                 <div class='div-wrapper-2'>
                                     <div class='div-wrapper-2'>
-                                        <div class='text-wrapper-9'>데이터 없음</div>
+                                        <div class='text-wrapper-9'>No data</div>
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +335,7 @@ if (mysqli_connect_errno()) {
                                 <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
                                 <div class='text-5'>
                                     <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
+                                    <p class='text-wrapper-11'>No data</p>
                                 </div>
                             </div>
                         </div>
@@ -344,7 +345,7 @@ if (mysqli_connect_errno()) {
             }
         } else {
 
-            echo "쿼리 실행 중 오류가 발생했습니다.";
+            echo "Query Error";
         }
         ?>
 
@@ -394,7 +395,7 @@ if (mysqli_connect_errno()) {
                             <div class='heading-wrapper'>
                                 <div class='div-wrapper-2'>
                                     <div class='div-wrapper-2'>
-                                        <div class='text-wrapper-9'>데이터 없음</div>
+                                        <div class='text-wrapper-9'>No data</div>
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +404,7 @@ if (mysqli_connect_errno()) {
                                 <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
                                 <div class='text-5'>
                                     <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
+                                    <p class='text-wrapper-11'>No data</p>
                                 </div>
                             </div>
                         </div>
@@ -412,11 +413,10 @@ if (mysqli_connect_errno()) {
                 </div>";
             }
         } else {
-            // 쿼리 실행 중 오류 처리
-            echo "쿼리 실행 중 오류가 발생했습니다.";
+            echo "Query Error";
         }
         ?>
-        <div class="text-wrapper-12">주변 병원과 약국을 확인하세요!</div>
+        <div class="text-wrapper-12">Close hospital and pharmacy</div>
         <div class="banner"></div>
     </div>
     </div>
