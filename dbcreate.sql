@@ -15,7 +15,7 @@ CREATE TABLE `Bookmark` (
 
 CREATE TABLE `Restaurant` (
 	`Res_ID`	INT	NOT NULL,
-	`Res_name`	VARCHAR(10)	NOT NULL,
+	`Res_name`	VARCHAR(20)	NOT NULL,
 	`Res_address`	VARCHAR(20)	NOT NULL,
 	`Res_img_url`	TINYTEXT	NULL,
 	`Category_ID`	INT	NOT NULL
