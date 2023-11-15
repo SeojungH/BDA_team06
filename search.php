@@ -1,3 +1,4 @@
+<!-- 2176278 이원주 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,7 +24,7 @@
     </style>
   </head>
   <body>
-    <div class="w-[1509px] h-[1452px] relative overflow-hidden bg-white">
+    <div class="w-[1509px] h-[1452px] relative bg-white">
       <!--네비게이션 바-->
       <div class="w-[1509px] h-[83.83px]">
         <div class="w-[1509px] h-[83.83px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -46,7 +47,7 @@
       <style>
         .dropdown-content {
             display: none;
-            position: absolute;
+            flex-wrap:wrap;
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -98,11 +99,17 @@
                     if(mysqli_stmt_execute($stmt)){
                         mysqli_stmt_bind_result($stmt, $itemID, $item);
                         while(mysqli_stmt_fetch($stmt)){
-                          $isChecked = 'checked="checked"';
-                          if(isset($_POST['category']) and !in_array($itemID, $_POST['category'])){
-                            $isChecked = '';
+                          $isChecked = '';
+                          if(isset($_POST['category'])){ // 검색 결과 페이지에서 필터 및 정렬 적용 버튼을 눌렀을 경우
+                            if(in_array($itemID, $_POST['category'])){ // 체크된 카테고리 모두
+                              $isChecked = 'checked="checked"';
+                            }
+                          } else if (isset($_GET['category_id'])){ // 메인 페이지에서 카테고리를 선택한 경우
+                            if($itemID == $_GET['category_id']){ // 해당 카테고리만
+                              $isChecked = 'checked="checked"';
+                            }
                           }
-                          echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'"'.$isChecked.'class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
+                          echo '<label><input type="checkbox" name="category[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
                             }
                     } else {
                     echo "쿼리실행안됨".mysqli_error($link);
@@ -131,7 +138,7 @@
                     die('연결안됨'.mysqli_connect_error());
 
                 // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
-                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
+                $sql = 'SELECT Allergy_ID FROM user_allergy WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
                 $sql .= 'SELECT * FROM allergy';
 
                 if(mysqli_multi_query($link, $sql)){
@@ -152,7 +159,8 @@
                       $item = $row[1];
 
                       $isChecked = '';
-                      if((!isset($_POST['allergy']) and in_array($itemID, $user_allergy_ID)) or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){
+                      if((!isset($_POST['allergy']) and !isset($_POST['category']) and in_array($itemID, $user_allergy_ID)) // 메인페이지에서 카테고리 선택해서 넘어온 경우 --> 기본값 : 사용자가 프로필에 설정한 알러지 정보 모두
+                          or (isset($_POST['allergy']) and in_array($itemID, $_POST['allergy']))){ // 검색 결과 페이지에서 필터 및 정렬 적용 버튼을 누른 경우 --> 체크된 알러지 값 모두
                         $isChecked = 'checked="checked"';
                       }
                       echo '<label><input type="checkbox" name="allergy[]" value="'.$itemID.'" '.$isChecked.' class="flex-grow w-[50px] text-base font-semibold text-left text-[#252729]">'.$item.'</label><br>';
@@ -169,9 +177,26 @@
         <!--정렬-->
         <select name="sort" class="flex justify-start items-center w-[150px] absolute left-[728px] top-[282px] px-4 py-2.5 rounded-[10px] bg-[#fefefe]" style="box-shadow: 0px 4px 20px 0 rgba(255, 214, 0, 0.3)">
           <option selected disabled hidden class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">정렬 기준</option>
-          <option value="recent" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>
-          <option value="rate_high" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>
-          <option value="rate_low" class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>
+          <?php
+            $isSelected = array("","","");
+            if(isset($_POST["sort"])){ // 검색 결과 페이지에서 (정렬 기준을 선택한 후) 필터 및 정렬 버튼을 눌렀을 때
+              switch($_POST["sort"]){ // 이전에 선택된 값이 선택된 것으로 보여줌
+                case("recent"):
+                  $isSelected[0] = "selected";
+                  break;
+                case("rate_high"):
+                  $isSelected[1] = "selected";
+                  break;
+                case("rate_low"):
+                  $isSelected[2] = "selected";
+                  break;
+              }
+            }
+
+            echo '<option value="recent" '.$isSelected[0].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">등록 최신순 (기본)</option>';
+            echo '<option value="rate_high" '.$isSelected[1].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 높은순</option>';
+            echo '<option value="rate_low" '.$isSelected[2].' class="flex-grow w-[110px] text-base font-semibold text-left text-[#252729]">별점 낮은순</option>';
+          ?>
         </select>
 
         <!--필터 및 정렬 적용 버튼-->
@@ -181,19 +206,25 @@
       </form>
 
       <!--식당 목록-->
-      <div class="flex flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
-        <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
-          <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
+      <div style="width:100%;" class="flex flex-wrap:wrap;flex-col justify-center items-center absolute left-[17px] top-[351px] gap-[88px]">
+        <div style="width:100%;" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 absolute left-0 top-[42px] gap-16">
+          <div style="width:100%; flex-wrap:wrap" class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
           <?php
             $link = mysqli_connect("localhost", "team06", "team06", "team06");
             if($link === false)
                 die('연결안됨'.mysqli_connect_error());
             
-            $sql = 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
-                    FROM restaurant R
+            // DB에서 식당별 찜 개수 가져오는 SQL문
+            $sql = 'SELECT Res_ID, COUNT(User_ID) AS bookmark_count
+                    FROM Bookmark
+                    GROUP BY Res_ID;';
+
+            // DB에서 필터, 정렬에 맞게 식당 목록 가져오는 SQL문
+            $sql .= 'SELECT R.Res_ID, R.Res_name, R.Res_img_url, R.Category_ID, AVG_RATE.Avg_rating
+                     FROM restaurant R
                       join (SELECT Res_ID, round(AVG(Res_rating), 2) AS Avg_rating FROM res_rate GROUP BY Res_ID) AVG_RATE
                       on R.Res_ID = AVG_RATE.Res_ID
-                    WHERE ';
+                     WHERE ';
             
             
             // 필터 (카테고리)
@@ -206,12 +237,17 @@
             // 필터 (알러지)
             if(isset($_POST['allergy'])){
               $temp = implode(', ', $_POST['allergy']); // [1, 2, 3] 식의 배열을 1, 2, 3이라는 문자열로 변환
-            } else{ //POST로 전달된 값이 없을 때는 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
-              $temp = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
+              $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                              FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                              WHERE A.Allergy_ID IN ('.$temp.'))';
+            } else if(!isset($_POST['category'])){ //메인페이지에서 카테고리 선택해서 넘어왔을 때 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
+              $temp = 'SELECT Allergy_ID FROM user_allergy WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
+              $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
+                                              FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
+                                              WHERE A.Allergy_ID IN ('.$temp.'))';
+            } else{ // 알러지 필터 모두 선택 해제 --> 조건 추가할 필요 없음.
             }
-            $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
-                                            FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
-                                            WHERE A.Allergy_ID IN ('.$temp.'))';
+            
 
             // 정렬
             $sort = 'recent'; // 기본값
@@ -230,50 +266,71 @@
             }
             
             // 쿼리 실행
-            if($stmt = mysqli_prepare($link, $sql)){
-                if(mysqli_stmt_execute($stmt)){
-                    mysqli_stmt_bind_result($stmt, $Res_ID, $Res_name, $Res_img_url, $Category_ID, $Avg_rating);
-                    $searchCheck = false;
+            if(mysqli_multi_query($link, $sql)){
+              // 찜 개수 저장
+              if ($result = mysqli_store_result($link)) {
+                $Bookmark_count_array = array();
+                while ($row = mysqli_fetch_row($result)) {
+                  $Res_ID = $row[0];
+                  $Bookmark_count = $row[1];
 
-                    while(mysqli_stmt_fetch($stmt)){
-                      $searchCheck = true;
-                      // 식당 정보 출력
-                      echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl">';
-                      
-                      // 식당 사진
-                      echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white">';
-                      echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
-                      echo '</div>';
-
-                      // 아이콘, 식당 이름, 별점
-                      echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
-                      echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
-                      echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
-                      echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
-                      echo '    </div>';
-                      echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
-                      echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
-                      echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
-                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
-                      echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.'</p>';
-                      echo '      </div>';
-                      echo '    </div>';                    
-                      echo '  </div>';                    
-                      echo '</div>';                    
-                      echo '</a>';                    
-                    }
-
-                    if(!$searchCheck) // 검색결과 없음
-                      echo '검색 결과가 없습니다.';
-                } else {
-                echo "쿼리실행안됨".mysqli_error($link);
+                  $Bookmark_count_array[$Res_ID] = $Bookmark_count;
                 }
-            }
-            else{
-                echo "쿼리 준비 불가". mysqli_error($link);
+              }
+              mysqli_free_result($result);                    
+
+              // 식당 목록 보여주기
+              mysqli_next_result($link);
+              if ($result = mysqli_store_result($link)) {
+                $searchCheck = false;
+
+                while ($row = mysqli_fetch_row($result)) {
+                  $searchCheck = true;
+
+                  $Res_ID = $row[0];
+                  $Res_name = $row[1];
+                  $Res_img_url = $row[2];
+                  $Category_ID = $row[3];
+                  $Avg_rating = $row[4];
+
+                  $Bookmark_count = 0;
+                  if(isset($Bookmark_count_array[$Res_ID])){ // 찜 개수가 있으면
+                    $Bookmark_count = $Bookmark_count_array[$Res_ID];
+                  }
+
+                  // 식당 정보 출력
+                  echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
+                  
+                  // 식당 사진
+                  echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative rounded-2xl bg-white">';
+                  echo '  <img src="'.$Res_img_url.'" class="w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover" />';
+                  echo '</div>';
+
+                  // 아이콘, 식당 이름, 별점
+                  echo '<div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8">';
+                  echo '  <div class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6">';
+                  echo '    <div class="flex-grow-0 flex-shrink-0 w-16 h-16 relative">';
+                  echo '      <img src="img/res_icon.png" class="w-16 h-16 absolute left-[-1px] top-[-1px] object-cover" />'; // 아이콘
+                  echo '    </div>';
+                  echo '    <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">';
+                  echo '      <p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">'.$Res_name.'</p>';
+                  echo '      <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">별점</p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Avg_rating.' / </p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">북마크</p>';
+                  echo '        <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">'.$Bookmark_count.'</p>'; // 찜 개수 기본값 : 0개
+                  echo '      </div>';
+                  echo '    </div>';                    
+                  echo '  </div>';                    
+                  echo '</div>';                    
+                  echo '</a>';                    
+                }
+
+                if(!$searchCheck) // 검색결과 없음
+                  echo '검색 결과가 없습니다.';
+              }
             }
             
-            mysqli_stmt_close($stmt);
             mysqli_close($link);
           ?>
           </div>
