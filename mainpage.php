@@ -20,11 +20,13 @@
   <body>
     <div class="w-[1718px] h-[1042px] relative overflow-hidden bg-white">
       <div class="w-[1721px] h-[408px] absolute left-[-3px] top-[58px] bg-[#fff3d9]">
+
         <p
           class="absolute left-[406px] top-[91px] text-[43px] font-bold text-center text-[#f17228]"
         >
           Best Restaurants
         </p>
+
       </div>
       <div class="w-[1718px] h-[76px]">
         <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -77,6 +79,7 @@
             stroke="#EEEEEE"
           ></path>
         </svg>
+
 
         <div
           class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white"
@@ -547,6 +550,7 @@
                 style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
               >
                 <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
+
                 </p>
               </div>
             </div>

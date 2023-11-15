@@ -7,7 +7,7 @@
       session_start();
     ?>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <title>Preview</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -94,6 +94,8 @@
                     die('연결안됨'.mysqli_connect_error());
                 
                 $sql = 'SELECT * FROM category';
+
+                mysqli_query($link, "SET NAMES utf8");	
                 
                 if($stmt = mysqli_prepare($link, $sql)){
                     if(mysqli_stmt_execute($stmt)){
@@ -134,8 +136,11 @@
             <div class="dropdown-content" id="allergyDropdown">
               <?php
                 $link = mysqli_connect("localhost", "team06", "team06", "team06");
+                
                 if($link === false)
                     die('연결안됨'.mysqli_connect_error());
+
+                 mysqli_query($link, "SET NAMES utf8");
 
                 // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
                 $sql = 'SELECT Allergy_ID FROM user_allergy WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
@@ -213,6 +218,8 @@
             $link = mysqli_connect("localhost", "team06", "team06", "team06");
             if($link === false)
                 die('연결안됨'.mysqli_connect_error());
+
+                mysqli_query($link, "SET NAMES utf8");
             
             // DB에서 식당별 찜 개수 가져오는 SQL문
             $sql = 'SELECT Res_ID, COUNT(User_ID) AS bookmark_count
@@ -265,6 +272,8 @@
                 $sql .= ' ORDER BY R.Res_ID DESC';
             }
             
+            // echo $sql;
+
             // 쿼리 실행
             if(mysqli_multi_query($link, $sql)){
               // 찜 개수 저장
