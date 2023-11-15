@@ -96,7 +96,7 @@ if (mysqli_connect_errno()) {
                         <div class="text-wrapper-3">
                             <?php if (isset($newArray[3][0]['avg_price'])) {
                                 $formattedAvgPrice = number_format($newArray[3][0]['avg_price'], 0);
-                                echo "<p>평균 " . $formattedAvgPrice . " won</p>";
+                                echo "<p> avg: " . $formattedAvgPrice . " won</p>";
                             } ?>
                         </div>
                         <form action="addBookmark.php?Res_ID=<?php echo urlencode($resid); ?>" method="post">
