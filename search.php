@@ -1,3 +1,4 @@
+<!-- 2176278 이원주 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -142,7 +143,7 @@
                  mysqli_query($link, "SET NAMES utf8");
 
                 // 쿼리 여러 개 넣는 법 참고 : https://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_db&wr_id=95165
-                $sql = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
+                $sql = 'SELECT Allergy_ID FROM user_allergy WHERE User_ID = '.$_SESSION["SESSION_User_ID"].';';
                 $sql .= 'SELECT * FROM allergy';
 
                 if(mysqli_multi_query($link, $sql)){
@@ -247,7 +248,7 @@
                                               FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
                                               WHERE A.Allergy_ID IN ('.$temp.'))';
             } else if(!isset($_POST['category'])){ //메인페이지에서 카테고리 선택해서 넘어왔을 때 --> 알러지 필터 초기값 : 해당 사용자의 프로필에 설정된 알러지
-              $temp = 'SELECT Allergy_ID FROM user_profile WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
+              $temp = 'SELECT Allergy_ID FROM user_allergy WHERE User_ID = '.$_SESSION["SESSION_User_ID"];
               $sql .= ' AND R.Res_ID NOT IN (SELECT M.Res_ID
                                               FROM res_menu M join menu_allergy A on M.Res_menu_ID = A.Res_menu_ID
                                               WHERE A.Allergy_ID IN ('.$temp.'))';

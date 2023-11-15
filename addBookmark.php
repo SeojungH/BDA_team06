@@ -1,3 +1,4 @@
+
 <!-- 2076456 황서정 -->
 
 <?php
@@ -12,6 +13,7 @@ if (mysqli_connect_errno()) {
     exit();
 } else {
     
+
     $userID = isset($_SESSION['SESSION_User_ID']) ? $_SESSION['SESSION_User_ID'] : '';
 
     $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; 
@@ -37,3 +39,4 @@ if (mysqli_connect_errno()) {
         }
     }
 }
+

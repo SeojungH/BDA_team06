@@ -20,11 +20,13 @@
   <body>
     <div class="w-[1718px] h-[1042px] relative overflow-hidden bg-white">
       <div class="w-[1721px] h-[408px] absolute left-[-3px] top-[58px] bg-[#fff3d9]">
+
         <p
           class="absolute left-[406px] top-[91px] text-[43px] font-bold text-center text-[#f17228]"
         >
-          What food do you want??
+          Best Restaurants
         </p>
+
       </div>
       <div class="w-[1718px] h-[76px]">
         <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -77,29 +79,71 @@
             stroke="#EEEEEE"
           ></path>
         </svg>
+
+
         <div
           class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white"
         >
           <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
-            <div
-              class="flex justify-start items-center flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100"
-            >
-              <p class="flex-grow-0 flex-shrink-0 w-[162px] text-lg text-left text-[#9e9e9e]">
-                Search
-              </p>
-            </div>
-            <div
-              class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg"
-              style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%);"
-            >
-              <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">
-                Find Restaurant
-              </p>
-            </div>
+            <!-- Best Restaurants -->
+            <?php
+            // MySQL 데이터베이스 접속 정보 설정
+            $servername = "localhost"; // MySQL 서버 주소
+            $username = "team06"; // MySQL 사용자 이름
+            $password = "team06"; // MySQL 비밀번호
+            $dbname = "team06"; // 사용할 데이터베이스 이름
+
+            // MySQL 데이터베이스에 연결
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            $counter = 0;
+
+            // 연결 확인
+            if ($conn->connect_error) {
+                die("데이터베이스 연결 실패: " . $conn->connect_error);
+            }
+
+            // SQL 쿼리 작성
+            $sql = "
+                SELECT 
+                    r.Res_ID, r.Res_name, r.Res_address, r.Res_img_url,avg_rating
+                FROM (
+                    SELECT 
+                        R.Res_ID, R.Res_name, R.Res_address, R.Res_img_url, AVG(RR.Res_rating) AS avg_rating,
+                        RANK() OVER (ORDER BY AVG(RR.Res_rating) DESC) AS ranking
+                    FROM Restaurant R
+                    INNER JOIN Res_rate RR ON R.Res_ID = RR.Res_ID
+                    GROUP BY R.Res_ID, R.Res_name, R.Res_address
+                ) r
+                WHERE r.ranking <= 3;
+            ";
+
+            // 쿼리 실행 및 결과 가져오기
+            $result = $conn->query($sql);
+
+            // 결과 출력
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                  if ($counter < 3){
+                    echo "Res_name: " . $row["Res_name"]. " - Res_address: " . $row["Res_address"]. " - avg_rating: " . $row["avg_rating"]. "<br>";
+                    $counter++;
+
+
+                  }    
+                  else{
+                    break;
+                  }
+                }
+            } else {
+                echo "결과가 없습니다.";
+            }
+              
+            // MySQL 연결 종료
+            $conn->close();
+            ?>
           </div>
         </div>
       </div>
-
 
       <div
         class="flex flex-col justify-center items-center w-[1718px] h-[575px] absolute left-0 top-[467px] gap-[71px] py-20"
@@ -498,7 +542,7 @@
                 style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
               >
                 <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-                  chevron-left
+
                 </p>
               </div>
               <div
@@ -506,7 +550,7 @@
                 style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
               >
                 <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-                  chevron-right
+
                 </p>
               </div>
             </div>

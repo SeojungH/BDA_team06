@@ -7,7 +7,9 @@ session_start();
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
 
+
 $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
+
 
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -99,21 +101,26 @@ if (mysqli_connect_errno()) {
                                 echo "<p> avg: " . $formattedAvgPrice . " won</p>";
                             } ?>
                         </div>
+
                         <form action="addBookmark.php?Res_ID=<?php echo urlencode($resid); ?>" method="post">
                             <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
                             <button type="submit" class="bookmark-btn">
                                 <img class="vector-bookmark" src="img/vector-8.svg" />
                                 <div class="text-wrapper-4">Bookmark</div>
+
+
                             </button>
                         </form>
                     </div>
                     <div class="review-btn">
+
                         <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">Write Review</a></div>
                     </div>
                     <div class="rate-btn">
                         <div class="text-2">
                             <a href="#" onclick="openPopup()">Star Rate</a>
                         </div>
+
                     </div>
 
                     <script>
@@ -170,7 +177,9 @@ if (mysqli_connect_errno()) {
                                     $menuID = $menuIDData['Res_menu_ID'];
 
 
+
                                     $classAllergy = '';
+
 
 
                                     $sql = "SELECT Allergy_ID FROM menu_allergy WHERE Res_menu_ID = '$menuID'";
@@ -346,6 +355,7 @@ if (mysqli_connect_errno()) {
         } else {
 
             echo "Query Error";
+
         }
         ?>
 
