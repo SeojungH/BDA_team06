@@ -18,13 +18,119 @@
     </style>
   </head>
   <body>
-    <div class="w-[1718px] h-[1042px] relative overflow-hidden bg-white">
-      <div class="w-[1721px] h-[408px] absolute left-[-3px] top-[58px] bg-[#fff3d9]">
-        <p
-          class="absolute left-[406px] top-[91px] text-[43px] font-bold text-center text-[#f17228]"
+    <div class="w-[1718px] h-[1389px] relative overflow-hidden bg-white">
+      <div class="w-[1721px] h-[714px] absolute left-0 top-[51px] bg-[#fff3d9]">
+        <div
+          class="flex flex-col justify-start items-center absolute left-[120px] top-[78px] gap-[88px]"
         >
-          Best Restaurants
-        </p>
+          <p class="flex-grow-0 flex-shrink-0 text-[43px] font-bold text-center text-[#f17228]">
+            Best Restaurants
+          </p>
+          <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 w-[1481px] gap-4">
+            <!-- 상위 5개 별점 높은 식당 보여주기 -->
+            <?php
+            // MySQL 데이터베이스 접속 정보 설정
+            $servername = "localhost"; // MySQL 서버 주소
+            $username = "team06"; // MySQL 사용자 이름
+            $password = "team06"; // MySQL 비밀번호
+            $dbname = "team06"; // 사용할 데이터베이스 이름
+
+            // MySQL 데이터베이스에 연결
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            $counter = 0;
+
+            // 연결 확인
+            if ($conn->connect_error) {
+                die("데이터베이스 연결 실패: " . $conn->connect_error);
+            }
+
+            // SQL 쿼리 작성
+            $sql = "
+                SELECT 
+                    r.Res_ID, r.Res_name, r.Res_address, r.Res_img_url,avg_rating
+                FROM (
+                    SELECT 
+                        R.Res_ID, R.Res_name, R.Res_address, R.Res_img_url, AVG(RR.Res_rating) AS avg_rating,
+                        RANK() OVER (ORDER BY AVG(RR.Res_rating) DESC) AS ranking
+                    FROM Restaurant R
+                    INNER JOIN Res_rate RR ON R.Res_ID = RR.Res_ID
+                    GROUP BY R.Res_ID, R.Res_name, R.Res_address
+                ) r
+                WHERE r.ranking <= 5;
+            ";
+
+            // 쿼리 실행 및 결과 가져오기
+            $result = $conn->query($sql);
+
+            // 결과 출력
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                  if ($counter < 5){
+                    $counter++;
+
+                    echo '<div class="flex flex-col justify-center items-start flex-grow gap-4">  <!-- 식당 하나 보여주기 -->
+                    <div
+                      class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-4"
+                    >
+                      <div
+                        class="self-stretch flex-grow-0 flex-shrink-0 h-[283px] relative overflow-hidden rounded-2xl"
+                      >';
+                      echo '<a href="res_detail.php?Res_ID=' . $row["Res_ID"] . '">';
+                        echo '<img
+                          src="$row["Res_img_url"]"
+                          class="w-[282.79px] h-[283px] absolute left-[-1px] top-[-1px] object-cover"
+                        />';
+                      echo '</a>';
+                      echo'</div>
+                      <div
+                        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2"
+                      >
+                        <div
+                          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2"
+                        >
+                          <p
+                            class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]"
+                          >';
+                          echo $row['Res_name'];
+                          echo '</p>
+                          <div
+                            class="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2"
+                          >
+                            <p class="flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]">';
+                            echo $row['Res_address'];
+                            echo '</p>
+                          </div>
+                        </div>
+                        <div
+                          class="flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2"
+                        >
+                          <p
+                            class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#212121]"
+                          >';
+                          echo round($row['avg_rating'], 2);
+                          echo '
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>';
+                    
+                  }    
+                  else{
+                    break;
+                  }
+                }
+            } else {
+                echo "결과가 없습니다.";
+            }
+              
+            // MySQL 연결 종료
+            $conn->close();
+            ?>
+          
+          </div>
+        </div>
       </div>
       <div class="w-[1718px] h-[76px]">
         <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -60,92 +166,44 @@
         </div>
       </div>
       <div
-        class="flex flex-col justify-start items-start w-[906px] absolute left-[406px] top-[209px] overflow-hidden rounded-2xl"
-        style="filter: drop-shadow(0px 5px 10px rgba(255,174,0,0.26)) drop-shadow(0px 20px 40px rgba(255,174,0,0.29));"
-      >
-        <svg
-          width="906"
-          height="1"
-          viewBox="0 0 906 1"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="self-stretch flex-grow-0 flex-shrink-0"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 0.441721C13.144 -0.358279 609.477 0.108388 906 0.441721"
-            stroke="#EEEEEE"
-          ></path>
-        </svg>
-
-        <div
-          class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white"
-        >
-          <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
-            <!-- Best Restaurants -->
-            <?php
-            // MySQL 데이터베이스 접속 정보 설정
-            $servername = "localhost"; // MySQL 서버 주소
-            $username = "team06"; // MySQL 사용자 이름
-            $password = "team06"; // MySQL 비밀번호
-            $dbname = "team06"; // 사용할 데이터베이스 이름
-
-            // MySQL 데이터베이스에 연결
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            $counter = 0;
-
-            // 연결 확인
-            if ($conn->connect_error) {
-                die("데이터베이스 연결 실패: " . $conn->connect_error);
-            }
-
-            // SQL 쿼리 작성
-            $sql = "
-                SELECT 
-                    r.Res_ID, r.Res_name, r.Res_address, r.Res_img_url,avg_rating
-                FROM (
-                    SELECT 
-                        R.Res_ID, R.Res_name, R.Res_address, R.Res_img_url, AVG(RR.Res_rating) AS avg_rating,
-                        RANK() OVER (ORDER BY AVG(RR.Res_rating) DESC) AS ranking
-                    FROM Restaurant R
-                    INNER JOIN Res_rate RR ON R.Res_ID = RR.Res_ID
-                    GROUP BY R.Res_ID, R.Res_name, R.Res_address
-                ) r
-                WHERE r.ranking <= 3;
-            ";
-
-            // 쿼리 실행 및 결과 가져오기
-            $result = $conn->query($sql);
-
-            // 결과 출력
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  if ($counter < 3){
-                    echo "Res_name: " . $row["Res_name"]. " - Res_address: " . $row["Res_address"]. " - avg_rating: " . $row["avg_rating"]. "<br>";
-                    $counter++;
-
-
-                  }    
-                  else{
-                    break;
-                  }
-                }
-            } else {
-                echo "결과가 없습니다.";
-            }
-              
-            // MySQL 연결 종료
-            $conn->close();
-            ?>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="flex flex-col justify-center items-center w-[1718px] h-[575px] absolute left-0 top-[467px] gap-[71px] py-20"
+        class="flex flex-col justify-center items-center w-[1718px] absolute left-0 top-[765px] gap-[71px] py-20"
         style="background: linear-gradient(to bottom, rgba(255,206,103,0.5) -42.47%, rgba(253,237,202,0) 100%);"
       >
+        <div
+          class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[1479px] relative gap-[88px]"
+        >
+          <div
+            class="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative"
+          >
+            <p class="flex-grow-0 flex-shrink-0 text-[43px] font-bold text-center text-[#212121]">
+              Search by Category
+            </p>
+          </div>
+          <?php
+          $categories = array(
+              array("id" => 1, "name" => "분식", "image" => "./img/분식.png"),
+              array("id" => 2, "name" => "중식", "image" => "./img/중식.png"),
+              array("id" => 3, "name" => "파스타", "image" => "./img/pasta.png"),
+              array("id" => 4, "name" => "한식", "image" => "./img/한식.png"),
+              array("id" => 5, "name" => "일식", "image" => "./img/일식.png"),
+              array("id" => 6, "name" => "피자", "image" => "./img/pizza.png"),
+          );
+
+          echo '<div class="flex justify-between items-start flex-grow-0 flex-shrink-0 w-[1479px] absolute left-0 top-[164px]">';
+          foreach ($categories as $category) {
+              echo '<div class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]">';
+              echo '<div class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]">';
+              echo '<a href="search.php?category_id=' . $category["id"] . '">';
+              echo '<img src="' . $category["image"] . '" class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover" />';
+              echo '</a>';
+              echo '</div>';
+              echo '<p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">' . $category["name"] . '</p>';
+              echo '</div>';
+          }
+          echo '</div>';
+          ?>
+        </div>
+        <div class="flex-grow-0 flex-shrink-0 w-[1583px] h-[94px] relative"></div>
         <div class="flex-grow-0 flex-shrink-0 w-[175px] h-[33px]">
           <img
             src="./img/dollar.png"
@@ -154,7 +212,6 @@
           <p
             class="w-[132px] h-[26px] absolute left-[204px] top-[523px] text-[17px] text-left text-black"
           >
-
           <?php
             // MySQL 데이터베이스 연결 설정
             $servername = "localhost";
@@ -207,7 +264,6 @@
             // 데이터베이스 연결 닫기
             $conn->close();
             ?>
-
           </p>
         </div>
         <div class="flex-grow-0 flex-shrink-0 w-[175px] h-[33px]">
@@ -521,60 +577,6 @@
           </p>
         </div>
       </div>
-      <div
-        class="flex flex-col justify-start items-center w-[1479px] h-[434px] absolute left-[120px] top-[521px] gap-[88px]"
-      >
-        <div
-          class="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-        >
-          <p class="flex-grow-0 flex-shrink-0 text-[43px] font-bold text-center text-[#212121]">
-            Search by Food
-          </p>
-          <div
-            class="flex justify-end items-center flex-grow-0 flex-shrink-0 gap-[26.5px] pr-[18px]"
-          >
-            <div class="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-4">
-              <div
-                class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 pl-[9px] pr-[11px] py-2.5 rounded-[92px] bg-[#ffb30e] border border-[#faaa01]"
-                style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
-              >
-                <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-
-                </p>
-              </div>
-              <div
-                class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 pl-[11px] pr-[9px] py-2.5 rounded-[92px] bg-[#ffb30e] border border-[#faaa01]"
-                style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
-              >
-                <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <?php
-          $categories = array(
-              array("id" => 1, "name" => "분식", "image" => "./img/분식.png"),
-              array("id" => 2, "name" => "중식", "image" => "./img/중식.png"),
-              array("id" => 3, "name" => "파스타", "image" => "./img/pasta.png"),
-              array("id" => 4, "name" => "한식", "image" => "./img/한식.png"),
-              array("id" => 5, "name" => "일식", "image" => "./img/일식.png"),
-              array("id" => 6, "name" => "피자", "image" => "./img/pizza.png"),
-          );
-
-          echo '<div class="flex justify-between items-start flex-grow-0 flex-shrink-0 w-[1479px] absolute left-0 top-[164px]">';
-          foreach ($categories as $category) {
-              echo '<div class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative gap-[26px]">';
-              echo '<div class="flex-grow-0 flex-shrink-0 w-[218px] h-[218px] relative overflow-hidden rounded-[144px]">';
-              echo '<a href="search.php?category_id=' . $category["id"] . '">';
-              echo '<img src="' . $category["image"] . '" class="w-[218px] h-[218px] absolute left-[-1px] top-[-1px] object-cover" />';
-              echo '</a>';
-              echo '</div>';
-              echo '<p class="flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]">' . $category["name"] . '</p>';
-              echo '</div>';
-          }
-          echo '</div>';
-          ?>
     </div>
   </body>
 </html>
