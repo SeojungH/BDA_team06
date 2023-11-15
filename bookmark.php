@@ -25,7 +25,7 @@
         </p>
         <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-16">
 
-            <?php
+        <?php
                 // 사용자가 Bookmark 한 Restaurant 정보와 Bookmark 총 개수 가져오기
 
                 //세션 가져오기
@@ -82,126 +82,127 @@
                     }
 
                     echo "<div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-6 rounded-2xl'>
-                            <div class='flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white'>";
+                    <div class='flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative overflow-hidden rounded-2xl bg-white'>";
 
-                    echo '<a href="res_detail.php?Res_ID=' . $row["Res_ID"] . '">';
-                    echo "<img src='{$row['Res_img_url']}' class='w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover' />";
-                    echo '</a>';
-                              echo"<div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
-                                <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
-                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
-                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                                    20% off
-                                  </p>
-                                </div>
-                                <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
-                                  <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
-                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                                    Fast
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
-                              <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
-                                <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
-                                  if ($row['Category_ID'] == 1){
-                                      echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                                  else if ($row['Category_ID'] == 2){
-                                    echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                                  else if ($row['Category_ID'] == 3){
-                                    echo "<img src='./img/pasta.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                                  else if ($row['Category_ID'] == 4){
-                                    echo "<img src='./img/한식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                                  else if ($row['Category_ID'] == 5){
-                                    echo "<img src='./img/일식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                                  else if ($row['Category_ID'] == 6){
-                                    echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
-                                  }
-                          
-                                echo"</div>
-                                <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
-                                  <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
-                                  <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
-                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>Star</p>
-                                    <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
-                                <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
-                                  Opens tomorrow
-                                </p>
-                              </div>
-                            </div>
-                          </div>";  
+            echo '<a href="res_detail.php?Res_ID=' . $row["Res_ID"] . '">';
+            echo "<img src='{$row['Res_img_url']}' class='w-[357px] h-[301px] absolute left-[-1px] top-[-1px] object-cover' />";
+            echo '</a>';
+                      echo"<div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
+                        <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
+                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
+                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
+                            20% off
+                          </p>
+                        </div>
+                        <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
+                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
+                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
+                            Fast
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
+                      <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
+                        <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
+                          if ($row['Category_ID'] == 1){
+                              echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
+                          else if ($row['Category_ID'] == 2){
+                            echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
+                          else if ($row['Category_ID'] == 3){
+                            echo "<img src='./img/pasta.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
+                          else if ($row['Category_ID'] == 4){
+                            echo "<img src='./img/한식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
+                          else if ($row['Category_ID'] == 5){
+                            echo "<img src='./img/일식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
+                          else if ($row['Category_ID'] == 6){
+                            echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
 
-                    $counter++;
+                        echo"</div>
+                        <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
+                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#424242]'>{$row['Res_name']}</p>
+                          <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2'>
+                            <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>Star</p>
+                            <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
+                        <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
+                          Opens tomorrow
+                        </p>
+                      </div>
+                    </div>
+                  </div>";  
 
-                    if ($counter % 4 == 0){
-                        echo "</div>";
-                    }
-                }
-                // 다음 페이지로 이동하는 링크 추가
-                echo "<a href='?offset=" . ($offset + $itemsPerPage) . "'>
-                <div class='flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]'
-                style='background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);'>
-                      <p class='flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white'>View</p>
-                </div>
-                </a>";
-                $conn->close();
-            ?>
-        </div>
-        </div>
-        <!-- <div
-          class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]"
-          style="background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);"
-        >
-          <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">View </p>
-        </div> -->
-      </div>
-      <div class="w-[1546px] h-[350px] absolute left-[-1px] top-[79px] bg-[#d9d9d9]"></div>
-      <div class="w-[1537px] h-20">
-        <div class="w-[1537px] h-20 absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
-        <div class="w-[752.49px] h-14">
-          <p class="w-[85.39px] absolute left-[397.06px] top-6 text-[22px] text-left text-white">
-            Account
-          </p>
-          <div class="w-[106.74px] h-[3px] absolute left-[385.88px] top-[76.5px] bg-white"></div>
-          <p
-            class="w-[86.46px] absolute left-[591.32px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-          >
-            Reposts
-          </p>
-          <p
-            class="w-[85.39px] absolute left-[784.51px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-          >
-            Settings
-          </p>
-          <p
-            class="w-[162.24px] absolute left-[976.64px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-          >
-            Help &#x26; Support
-          </p>
-        </div>
-        <div class="w-[53.37px] h-[25px]">
-          <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[26.5px] bg-white"></div>
-          <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[38.04px] bg-white"></div>
-          <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[49.58px] bg-white"></div>
-        </div>
-      </div>
-      <div class="w-[200px] h-[271px]">
-        <img class="absolute left-[679.5px] top-[108.5px]" src="./img/ellipse-1.png" />
-        <p class="w-[142px] absolute left-[706px] top-[325px] text-5xl italic text-left text-black">
-            <?php echo $user_name; ?>
-        </p>
-      </div>
+            $counter++;
+
+            if ($counter % 4 == 0){
+                echo "</div>";
+            }
+
+          }
+          // 다음 페이지로 이동하는 링크 추가
+          echo "<a href='?offset=" . ($offset + $itemsPerPage) . "'>
+          <div class='flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]'
+          style='background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);'>
+                <p class='flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white'>View</p>
+          </div>
+          </a>";
+          $conn->close();
+      ?>
+  </div>
+  </div>
+  <!-- <div
+    class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-[14px]"
+    style="background: linear-gradient(140.56deg, #ffba26 -14.76%, #ff9a0e 114.07%); box-shadow: 0px 5px 10px 0 rgba(255,174,0,0.26), 0px 20px 40px 0 rgba(255,174,0,0.29);"
+  >
+    <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">View </p>
+  </div> -->
+</div>
+<div class="w-[1546px] h-[350px] absolute left-[-1px] top-[79px] bg-[#d9d9d9]"></div>
+<div class="w-[1537px] h-20">
+  <div class="w-[1537px] h-20 absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
+  <div class="w-[752.49px] h-14">
+    <p class="w-[85.39px] absolute left-[397.06px] top-6 text-[22px] text-left text-white">
+      Account
+    </p>
+    <div class="w-[106.74px] h-[3px] absolute left-[385.88px] top-[76.5px] bg-white"></div>
+    <p
+      class="w-[86.46px] absolute left-[591.32px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
+    >
+      Reposts
+    </p>
+    <p
+      class="w-[85.39px] absolute left-[784.51px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
+    >
+      Settings
+    </p>
+    <p
+      class="w-[162.24px] absolute left-[976.64px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
+    >
+      Help &#x26; Support
+    </p>
+  </div>
+  <div class="w-[53.37px] h-[25px]">
+    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[26.5px] bg-white"></div>
+    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[38.04px] bg-white"></div>
+    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[49.58px] bg-white"></div>
+  </div>
+</div>
+<div class="w-[200px] h-[271px]">
+  <img class="absolute left-[679.5px] top-[108.5px]" src="./img/ellipse-1.png" />
+  <p class="w-[142px] absolute left-[706px] top-[325px] text-5xl italic text-left text-black">
+      <?php echo $user_name; ?>
+  </p>
+
+  </div>
     </div>
   </body>
 </html>
-

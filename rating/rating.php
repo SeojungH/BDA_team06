@@ -1,8 +1,10 @@
+
 <!-- 2076456 황서정 -->
 
 <?php
 
 session_name('로그인');
+
 session_start();
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -11,6 +13,7 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+
 
 $resID = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
 
@@ -45,13 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Star Rating</title>
+
     <style>
         body {
             background-color: white;
@@ -83,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 30%;
         }
 
-
         button {
             background-color: #FFD233;
             color: #333;
@@ -95,9 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             position: inherit;
 
+
         }
 
         button3 {
+
             background-color: #FFD233;
             color: #333;
             padding: 10px 20px;
@@ -108,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: relative;
             top: 100px;
         }
+
 
         buttoncl {
             background-color: #FFD233;
@@ -121,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             top: 200px;
             right: 140px;
         }
+
 
         form {
             margin-top: 20px;
@@ -136,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+
 
     <button onclick="openModal()">Star Rating</button>
     <div>★★★★★</div>
@@ -166,13 +176,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <script>
+
         function openModal() {
             document.getElementById('myModal').style.display = 'block';
         }
 
 
+
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
+
 
         }
     </script>
@@ -181,6 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </html>
 
+
 <?php
 mysqli_close($mysqli);
 ?>
+

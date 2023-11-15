@@ -308,7 +308,7 @@
                   }
 
                   // 식당 정보 출력
-                  echo '<a href="res_detail.php?res_name='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
+                  echo '<a href="res_detail.php?Res_ID='.$Res_ID.'" class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-6 rounded-2xl">';
                   
                   // 식당 사진
                   echo '<div class="flex-grow-0 flex-shrink-0 w-[357px] h-[301px] relative rounded-2xl bg-white">';

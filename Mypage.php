@@ -62,6 +62,8 @@ $_SESSION["SESSION_User_name"]
           <div class = "profile-bio-content">
             <?php
 
+            mysqli_query($mysqli, "SET NAMES utf8");	
+
             echo '
             <div class = "profile-name">'.$_SESSION["SESSION_User_name"].'</div>
             ';
@@ -86,6 +88,52 @@ $_SESSION["SESSION_User_name"]
 
             ?>
           </div>
+
+          <a href="#pop_info_1" class="btn_open">바이오 수정</a>
+
+          <!-- 바이오 수정 -->
+          <div id="pop_info_1" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <form action = "bio_update.php" method="POST">
+                <input type="text" name="bio" checked="off" id="bio">
+                <button type = "submit">바이오 업데이트</button>
+              </form>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
+
+          <a href="#pop_info_2" class="btn_open">회원 탈퇴</a>
+
+          <!-- 회원탈퇴 -->
+          <div id="pop_info_2" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+                정말 탈퇴하시겠어요? 회원 탈퇴 시 정보가 모두 삭제됩니다.
+                <button type = "button" onclick="location.href='DeleteUser.php'">회원 탈퇴</button>
+              <button type="button" class="btn_close">취소</button>
+            </div>
+          </div>
+
+          <script>
+            var target = document.querySelectorAll('.btn_open');
+            var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+            var targetID;
+
+            // 팝업 열기
+            for(var i = 0; i < target.length; i++){
+              target[i].addEventListener('click', function(){
+                targetID = this.getAttribute('href');
+                document.querySelector(targetID).style.display = 'block';
+              });
+            }
+            
+            // 팝업 닫기
+            for(var j = 0; j < target.length; j++){
+              btnPopClose[j].addEventListener('click', function(){
+                this.parentNode.parentNode.style.display = 'none';
+              });
+            }
+          </script>
+
         </div>
         <div class = "profile-allergy">
           <!-- 알러지 입력 폼 -->
