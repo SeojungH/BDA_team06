@@ -1,4 +1,10 @@
+
+<!-- 2076456 황서정 -->
+
 <?php
+
+session_name('로그인');
+
 session_start();
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -8,37 +14,50 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+
+$resID = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $userID = isset($_SESSION['User_ID']) ? $_SESSION['User_ID'] : '';
-
-
-    $resID = isset($_POST['Res_ID']) ? $_POST['Res_ID'] : '';
-
+    $userID = isset($_SESSION['SESSION_User_ID']) ? $_SESSION['SESSION_User_ID'] : '';
 
     $selectedRating = isset($_POST['selectedRating']) ? $_POST['selectedRating'] : '';
 
-  
     $currentDate = date("Y-m-d");
 
- 
+
     $insertQuery = "INSERT INTO res_rate (Res_ID, User_ID, Res_rating, Res_rating_date) VALUES ('$resID', '$userID', '$selectedRating', '$currentDate')";
 
-    if (mysqli_query($mysqli, $insertQuery)) {
-        echo '별점이 성공적으로 등록되었습니다.';
-    } else {
-        echo '별점 등록 중 오류가 발생했습니다: ' . mysqli_error($mysqli);
+    $checkDuplicateQuery = "SELECT * FROM res_rate WHERE User_ID = '$userID' AND Res_ID = '$resID'";
+    $checkDuplicateResult = mysqli_query($mysqli, $checkDuplicateQuery);
+
+    if (mysqli_num_rows($checkDuplicateResult) > 0) {
+        echo "<script>alert('Already rated');</script>";
+        echo "<script>history.back();</script>";
+        exit();
     }
-    exit(); 
+
+    if (mysqli_query($mysqli, $insertQuery)) {
+        echo "<script>alert('SUCCESS');</script>";
+        echo "<script>history.back();</script>";
+    } else {
+        echo "<script>alert('FAIL: ERROR');</script>";
+        echo "<script>history.back();</script>";
+    }
+    exit();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>별점 매기기</title>
+
+    <title>Star Rating</title>
+
     <style>
         body {
             background-color: white;
@@ -48,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 0;
         }
 
-     
+
         .modal {
             display: none;
             position: fixed;
@@ -70,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 30%;
         }
 
-  
         button {
             background-color: #FFD233;
             color: #333;
@@ -81,9 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 5px;
             text-align: center;
             position: inherit;
+
+
         }
 
-        button-3 {
+        button3 {
+
             background-color: #FFD233;
             color: #333;
             padding: 10px 20px;
@@ -95,12 +116,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             top: 100px;
         }
 
-  
+
+        buttoncl {
+            background-color: #FFD233;
+            color: #333;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            position: relative;
+            top: 200px;
+            right: 140px;
+        }
+
+
         form {
             margin-top: 20px;
         }
 
-    
+
         select {
             padding: 10px;
             font-size: 16px;
@@ -111,73 +146,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-   
-    <button onclick="openModal()">별점 매기기</button>
 
- 
+    <button onclick="openModal()">Star Rating</button>
+    <div>★★★★★</div>
+
     <div id="myModal" class="modal">
         <div class="modal-content">
-          
+
             <form action="" method="post">
                 <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
 
-             
+
                 <select name="selectedRating">
-                    <option value="1">1점</option>
-                    <option value="2">2점</option>
-                    <option value="3">3점</option>
-                    <option value="4">4점</option>
-                    <option value="5">5점</option>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="5">★★★★★</option>
                 </select>
 
-               
-                <button type="submit">별점</button>
+
+                <button type="submit">submit</button>
             </form>
 
-      
-            <button-3 onclick="closeModal()">닫기</button-3>
+
+            <button3 onclick="closeModal()">close</button3>
         </div>
     </div>
 
+
     <script>
-  
+
         function openModal() {
             document.getElementById('myModal').style.display = 'block';
         }
 
- 
+
+
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
+
+
         }
     </script>
 
 </body>
 
 </html>
+
+
 <?php
 mysqli_close($mysqli);
 ?>
 
-
-<!-- <!DOCTYPE html>
-<html lang="KO">
-
-<head>
-    <link rel="stylesheet" href="rating.css" />
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>별점</title>
-</head>
-<form class="mb-3" name="myform" id="myform" method="post">
-    <fieldset>
-        <span class="text-bold">별</span>
-        <input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
-        <input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
-        <input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>
-        <input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>
-        <input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
-    </fieldset>
-</form>
-
-</html> -->

@@ -1,11 +1,15 @@
+<!-- 2076456 황서정 -->
+
 <?php
 
-// session_name('로그인');
-session_start(); // 세션 시작
+session_name('로그인');
+session_start(); 
 
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
 
-$resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : ''; 
+
+$resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
+
 
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -35,7 +39,7 @@ if (mysqli_connect_errno()) {
             }
         } while (mysqli_next_result($mysqli));
     } else {
-        echo "다중 쿼리 실행 중 오류가 발생했습니다.";
+        echo "Multi Query Error";
     }
 
     $sql = "SELECT * FROM restaurant WHERE Res_ID = '$resid'";
@@ -47,10 +51,10 @@ if (mysqli_connect_errno()) {
         $resname = $restaurantData['Res_name'];
         if ($restaurantData !== null) {
         } else {
-            echo "레코드를 찾지 못했습니다.";
+            echo "Can't find the records";
         }
     } else {
-        echo "쿼리 실행 중 오류가 발생했습니다.";
+        echo "Query Error";
     }
 }
 ?>
@@ -84,7 +88,7 @@ if (mysqli_connect_errno()) {
                                     <div class="text-wrapper-2">
                                         <?php if (isset($newArray[2][0]['avg_rating'])) {
                                             $formattedAvgRat = number_format($newArray[2][0]['avg_rating'], 1);
-                                            echo "<p>" . $formattedAvgRat . " 점</p>";
+                                            echo "<p>" . $formattedAvgRat . " star</p>";
                                         }
                                         ?>
                                     </div>
@@ -94,23 +98,43 @@ if (mysqli_connect_errno()) {
                         <div class="text-wrapper-3">
                             <?php if (isset($newArray[3][0]['avg_price'])) {
                                 $formattedAvgPrice = number_format($newArray[3][0]['avg_price'], 0);
-                                echo "<p>평균 " . $formattedAvgPrice . " 원</p>";
+                                echo "<p> avg: " . $formattedAvgPrice . " won</p>";
                             } ?>
                         </div>
-                        <form action="addBookmark.php" method="post">
+
+                        <form action="addBookmark.php?Res_ID=<?php echo urlencode($resid); ?>" method="post">
                             <input type="hidden" name="Res_ID" value="<?php echo $resid; ?>">
                             <button type="submit" class="bookmark-btn">
                                 <img class="vector-bookmark" src="img/vector-8.svg" />
-                                <div class="text-wrapper-4">북마크</div>
+                                <div class="text-wrapper-4">Bookmark</div>
+
+
                             </button>
                         </form>
                     </div>
                     <div class="review-btn">
-                        <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">리뷰 쓰기</a></div>
+
+                        <div class="text"><a href="CreateReview.php?Res_ID=<?php echo urlencode($resid); ?>">Write Review</a></div>
                     </div>
                     <div class="rate-btn">
-                        <div class="text-2"><a href="rating/rating.php">별점 등록</a></div>
+                        <div class="text-2">
+                            <a href="#" onclick="openPopup()">Star Rate</a>
+                        </div>
+
                     </div>
+
+                    <script>
+                        function openPopup() {
+                            var pageURL = "rating/rating.php?Res_ID=<?php echo urlencode($resid); ?>";
+                       
+                            var left = (screen.width - 600) / 2;
+                            var top = (screen.height - 400) / 2;
+
+                            window.open(pageURL, "_blank", "width=600, height=400, left=" + left + ", top=" + top + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no");
+                        }
+                    </script>
+
+
                 </div>
                 <h1 class="menu-2">
                     <div class="frame-4">
@@ -125,12 +149,12 @@ if (mysqli_connect_errno()) {
                                 $menuName = $menuData['Res_menu_name'];
                                 $menuPrice = $menuData['Res_menu_price'];
 
-                                echo "<img class='menu-icon' src='img/healthy-food.png' alt='Healthy Food Icon' />";
-                                echo "<p class='p'>$menuName</p>";
+                                echo "<img class='menu-icon' src='img/res_icon.png' alt='Food Icon' />";
+                                echo "<p class='p'>&nbsp;&nbsp;&nbsp;$menuName</p>";
                                 echo "<div class='frame-6'>";
                                 echo "<div class='frame-7'>";
                                 echo "<img class='vector-2' src='img/vector-4.svg' />";
-                                echo "<div class='text-wrapper-6'>$menuPrice 원</div>";
+                                echo "<div class='text-wrapper-6'>$menuPrice won</div>";
                                 echo "</div>";
                                 echo "</div>";
                             }
@@ -139,24 +163,25 @@ if (mysqli_connect_errno()) {
                     </div>
 
                     <div class="discount">
-                        <!-- <div class="icon">tag</div> -->
                         <div class="text-3">
                             <?php
-                          
+
                             $sql = "SELECT Res_menu_ID FROM res_menu WHERE Res_ID = '$resid'";
                             $res = mysqli_query($mysqli, $sql);
 
                             if ($res) {
-                              
+
                                 $allergies = array();
 
                                 while ($menuIDData = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
                                     $menuID = $menuIDData['Res_menu_ID'];
 
-                                  
+
+
                                     $classAllergy = '';
 
-                                    
+
+
                                     $sql = "SELECT Allergy_ID FROM menu_allergy WHERE Res_menu_ID = '$menuID'";
                                     $res2 = mysqli_query($mysqli, $sql);
 
@@ -164,7 +189,7 @@ if (mysqli_connect_errno()) {
                                         while ($allergyIDData = mysqli_fetch_array($res2, MYSQLI_ASSOC)) {
                                             $allergyID = $allergyIDData['Allergy_ID'];
 
-                                          
+
                                             $sql = "SELECT Allergy_name FROM allergy WHERE Allergy_ID = '$allergyID'";
                                             $res3 = mysqli_query($mysqli, $sql);
 
@@ -178,7 +203,7 @@ if (mysqli_connect_errno()) {
                                     }
                                     $allergies[] = $classAllergy;
                                 }
-                                
+
                                 foreach ($allergies as $allergy) {
                                     echo "<div class='allergy'><div class='icon'>tag</div>  $allergy  </div>";
                                 }
@@ -252,14 +277,14 @@ if (mysqli_connect_errno()) {
                                                     echo "</div>";
                                                 }
                                             }
-                                            echo "</div>"; // end of review-set
+                                            echo "</div>"; 
                                         }
                                     }
                                 }
                             }
                         }
                     } else {
-                        echo "쿼리 실행 중 오류가 발생했습니다.";
+                        echo "Query Error";
                     }
                     ?>
                 </div>
@@ -310,7 +335,7 @@ if (mysqli_connect_errno()) {
                             <div class='content'>
                                 <div class='div-wrapper-2'>
                                     <div class='div-wrapper-2'>
-                                        <div class='text-wrapper-9'>데이터 없음</div>
+                                        <div class='text-wrapper-9'>No data</div>
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +344,7 @@ if (mysqli_connect_errno()) {
                                 <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
                                 <div class='text-5'>
                                     <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
+                                    <p class='text-wrapper-11'>No data</p>
                                 </div>
                             </div>
                         </div>
@@ -329,76 +354,12 @@ if (mysqli_connect_errno()) {
             }
         } else {
 
-            echo "쿼리 실행 중 오류가 발생했습니다.";
+            echo "Query Error";
+
         }
         ?>
 
-        <?php
-        $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
-
-        $sql = "SELECT h.Hos_name, h.Hos_num
-                        FROM restaurant r
-                        LEFT JOIN hospital h ON SUBSTRING_INDEX(r.Res_address, ' ', -1) = SUBSTRING_INDEX(h.Hos_address, ' ', -1)
-                        WHERE r.Res_ID = '$resid'";
-
-        $res = mysqli_query($mysqli, $sql);
-
-        if ($res) {
-            $hospitalData = mysqli_fetch_array($res, MYSQLI_ASSOC);
-
-            if ($hospitalData) {
-                $hosName = $hospitalData['Hos_name'];
-                $hosNum = $hospitalData['Hos_num'];
-                echo "<div class='hos'>
-                    <div class='text-4'>
-                        <div class='content'>
-                            <div class='div-wrapper-2'>
-                                <div class='div-wrapper-2'>
-                                    <div class='text-wrapper-9'>$hosName</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='address'>
-                            <div class='element'>
-                                <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
-                                <div class='text-5'>
-                                    <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'> $hosNum</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <img class='image' src='img/image-1.png' />
-                </div>";
-            } else {
-
-                echo "<div class='hos'>
-                    <div class='text-4'>
-                        <div class='content'>
-                            <div class='div-wrapper-2'>
-                                <div class='div-wrapper-2'>
-                                    <div class='text-wrapper-9'>데이터 없음</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='address'>
-                            <div class='element'>
-                                <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
-                                <div class='text-5'>
-                                    <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <img class='image' src='img/image-1.png' />
-                </div>";
-            }
-        } else {
-
-            echo "쿼리 실행 중 오류가 발생했습니다.";
-        }
-        ?>
+    
 
         <?php
         $resid = isset($_GET['Res_ID']) ? $_GET['Res_ID'] : '';
@@ -444,7 +405,7 @@ if (mysqli_connect_errno()) {
                             <div class='heading-wrapper'>
                                 <div class='div-wrapper-2'>
                                     <div class='div-wrapper-2'>
-                                        <div class='text-wrapper-9'>데이터 없음</div>
+                                        <div class='text-wrapper-9'>No data</div>
                                     </div>
                                 </div>
                             </div>
@@ -453,7 +414,7 @@ if (mysqli_connect_errno()) {
                                 <div class='vector-wrapper'><img class='vector-3' src='img/vector-4.svg' /></div>
                                 <div class='text-5'>
                                     <div class='text-wrapper-10'>CALL NOW:</div>
-                                    <p class='text-wrapper-11'>데이터 없음</p>
+                                    <p class='text-wrapper-11'>No data</p>
                                 </div>
                             </div>
                         </div>
@@ -462,11 +423,10 @@ if (mysqli_connect_errno()) {
                 </div>";
             }
         } else {
-            // 쿼리 실행 중 오류 처리
-            echo "쿼리 실행 중 오류가 발생했습니다.";
+            echo "Query Error";
         }
         ?>
-        <div class="text-wrapper-12">주변 병원과 약국을 확인하세요!</div>
+        <div class="text-wrapper-12">Close hospital and pharmacy</div>
         <div class="banner"></div>
     </div>
     </div>
