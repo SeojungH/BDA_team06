@@ -20,11 +20,7 @@
   <body>
     <div class="w-[1718px] h-[1042px] relative overflow-hidden bg-white">
       <div class="w-[1721px] h-[408px] absolute left-[-3px] top-[58px] bg-[#fff3d9]">
-        <p
-          class="absolute left-[406px] top-[91px] text-[43px] font-bold text-center text-[#f17228]"
-        >
-          What food do you want??
-        </p>
+        
       </div>
       <div class="w-[1718px] h-[76px]">
         <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
@@ -77,27 +73,7 @@
             stroke="#EEEEEE"
           ></path>
         </svg>
-        <div
-          class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2.5 p-6 bg-white"
-        >
-          <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-4">
-            <div
-              class="flex justify-start items-center flex-grow relative gap-3 pl-4 pt-[7px] pb-2 rounded-lg bg-neutral-100"
-            >
-              <p class="flex-grow-0 flex-shrink-0 w-[162px] text-lg text-left text-[#9e9e9e]">
-                Search
-              </p>
-            </div>
-            <div
-              class="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-12 py-[21px] rounded-lg"
-              style="background: linear-gradient(137.75deg, #ff7a7a -39.37%, #f65900 143.15%);"
-            >
-              <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">
-                Find Restaurant
-              </p>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
 
@@ -498,7 +474,7 @@
                 style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
               >
                 <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-                  chevron-left
+                  
                 </p>
               </div>
               <div
@@ -506,7 +482,7 @@
                 style="box-shadow: 0px 5px 8px 0 rgba(222,151,0,0.24), 0px 14px 32px 0 rgba(255,178,14,0.29);"
               >
                 <p class="flex-grow-0 flex-shrink-0 w-14 h-14 text-[33px] text-center text-white">
-                  chevron-right
+                  
                 </p>
               </div>
             </div>
