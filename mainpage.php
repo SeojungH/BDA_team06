@@ -78,7 +78,7 @@
                       >';
                       echo '<a href="res_detail.php?Res_ID=' . $row["Res_ID"] . '">';
                         echo '<img
-                          src="$row["Res_img_url"]"
+                          src="'.$row["Res_img_url"].'"
                           class="w-[282.79px] h-[283px] absolute left-[-1px] top-[-1px] object-cover"
                         />';
                       echo '</a>';
