@@ -55,10 +55,6 @@
         echo "<script>alert('리뷰 작성 완료!');</script>";
         echo "<script>location.replace('Mypage.php');</script>";
         exit;
-    }else if(mysqli_affected_rows($mysqli)<1){
-        echo "<script>alert('리뷰 작성 실패!');</script>";
-        echo "<script>location.replace('Mypage.php');</script>";
-        exit;
     }
 
     mysqli_close($mysqli);
