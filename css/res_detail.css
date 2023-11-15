@@ -791,3 +791,17 @@ screeen .img-container img.star {
   margin: 10px 0;
   box-sizing: border-box;
 }
+
+.screen .back-button {
+  display: flex;
+  align-items: baseline;
+  font-size: 15px;
+  background-color: white;
+  padding: 15px;
+  font-weight: bold;
+  position: relative;
+  top: 10px;
+  border: 1px white;
+  border-radius: 40px 40px;
+  z-index: 9999;
+}

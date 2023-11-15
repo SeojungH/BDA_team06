@@ -75,6 +75,7 @@ if (mysqli_connect_errno()) {
 <body>
     <div class="screen">
         <div class="div">
+        <button class="back-button" onclick="history.back()"><< back</button>
             <div class="res-info">
                 <div class="frame">
                     <img class="rectangle" src="<?php echo $resImgUrl ?>" width="400" height="250" />
