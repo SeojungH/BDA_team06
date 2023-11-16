@@ -1,19 +1,5 @@
 <!-- 1976333 임채민 -->
 
-<!-- 로그인 된 상태에서 유저 정보 받아오기
-
-다음으로 코드로 데이터베이스 연결 후 세션 스타트
-session_start(); //세션 시작
-
-유저 아이디 변수
-$_SESSION["SESSION_User_ID"]
-유저 이름 변수
-$_SESSION["SESSION_User_name"]
-
-로 받아오시면 됩니다. -->
-
-<!-- 데이터베이스 연결 -->
-
 <?php
     $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
 
