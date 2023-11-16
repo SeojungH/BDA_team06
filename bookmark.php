@@ -89,24 +89,19 @@
             echo '</a>';
                       echo"<div class='flex justify-start items-start absolute left-6 top-6 gap-2'>
                         <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#f17228]'>
-                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>tag</p>
-                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                            20% off
-                          </p>
+                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>bookmark</p>
+                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>"
+                          . $row_2["bookmark_count"] .
+                          "</p>
                         </div>
-                        <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-lg bg-[#ffb30e]'>
-                          <p class='flex-grow-0 flex-shrink-0 text-lg text-left text-white'>clock</p>
-                          <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-white'>
-                            Fast
-                          </p>
-                        </div>
+                        
                       </div>
                     </div>
                     <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-8'>
                       <div class='flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-6'>
                         <div class='flex-grow-0 flex-shrink-0 w-16 h-16 relative'>";
                           if ($row['Category_ID'] == 1){
-                              echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                            echo "<img src='./img/분식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                           }
                           else if ($row['Category_ID'] == 2){
                             echo "<img src='./img/중식.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
@@ -123,6 +118,9 @@
                           else if ($row['Category_ID'] == 6){
                             echo "<img src='./img/pizza.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
                           }
+                          else if ($row['Category_ID'] == 7){
+                            echo "<img src='./img/image-4.png' class='w-16 h-16 absolute left-[-1px] top-[-1px] object-cover' />";
+                          }
 
                         echo"</div>
                         <div class='flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1'>
@@ -132,11 +130,6 @@
                             <p class='flex-grow-0 flex-shrink-0 text-[22px] text-left text-[#ffb30e]'>{$row_2['bookmark_count']}</p>
                           </div>
                         </div>
-                      </div>
-                      <div class='flex justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2.5 px-4 py-2 rounded-2xl bg-[#f17228]/20'>
-                        <p class='flex-grow-0 flex-shrink-0 text-[22px] font-bold text-left text-[#f17228]'>
-                          Opens tomorrow
-                        </p>
                       </div>
                     </div>
                   </div>";  
