@@ -1,4 +1,5 @@
-<!-- 1976333 임채민 -->
+<!-- 1976333 임채민 (전체) -->
+<!-- 2176278 이원주 (알러지 입력 폼 코드를 수정) -->
 
 <?php
     $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -167,30 +168,34 @@
                 <?php
                                   
                   // 알러지 체크박스 구성
-                  $sql = 'SELECT * FROM allergy';
+                  $sql = "SELECT * FROM User_Allergy WHERE User_ID ='".$User_ID."';";
+                  $sql .= 'SELECT * FROM allergy;';
 
                   if(mysqli_multi_query($mysqli, $sql)){ 
+                    // $allergyCheck : 사용자가 프로필에 설정해둔 알러지 정보 구하기 
+                    if ($result = mysqli_store_result($mysqli)) {
+                      $allergyCheck = array();
+                      while ($row = mysqli_fetch_row($result)) {
+                        array_push($allergyCheck, $row[0]);
+                      }
+                    }
+                    mysqli_free_result($result);               
+
+                    // 체크할 선택지 만들기
+                    mysqli_next_result($mysqli);
                     if ($result = mysqli_store_result($mysqli)) {
                       while ($row = mysqli_fetch_row($result)) {
                         $allergyID = $row[0];
                         $allergyName = $row[1];
+                        
+                        if (in_array($allergyID, $allergyCheck)) { //사용자가 이 알러지를 이미 체크해두었음
+                          $CHECK = 'checked="checked"';
+                        } else {
+                          $CHECK = "";
+                        }
 
-                        // 아직 작동 안됨
-                        // $sql_2 = "
-                        // SELECT * FROM User_Allergy WHERE User_ID ='".$User_ID."'
-                        // ";
-                        // echo $sql_2;
-                        // $row_2 = mysqli_query($mysqli, $sql_2);
-                        // $allergyCheck = mysqli_fetch_row($row_2);
-                        // if (in_array($allergyID,$allergyCheck)) { //사용자가 이 알러지를 이미 체크해두었음
-                        //   $CHECK = "on";
-                        // } else {
-                        //   $CHECK = "off";
-                        // }
-
-                        // $allergyCheck
                         echo '
-                        <li><input type="checkbox" name="allergy_form[]" checked="off" id="'.$allergyID.'" value="'.$allergyID.'"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
+                        <li><input type="checkbox" name="allergy_form[]" '.$CHECK.' id="'.$allergyID.'" value="'.$allergyID.'"><label for="'.$allergyID.'">'.$allergyName.'</label></li>
                         ';
                       }
                     }
