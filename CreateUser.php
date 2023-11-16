@@ -31,7 +31,7 @@
                 <div class="Register-input-box">
                     <div class="form__group field__id">
                         <input type="text" class="form__field__id" placeholder="user_id" name="user_id" id='user_id' required />
-                        <label for="user_id" class="form__label__id">이메일(아이디)</label>
+                        <label for="user_id" class="form__label__id">아이디</label>
                     </div>
                     <div class="form__group field__pw">
                         <input type="text" class="form__field__pw" placeholder="user_pw" name = "user_pw" id = "user_pw" required />
