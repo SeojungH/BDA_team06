@@ -161,36 +161,42 @@
     <p class="flex-grow-0 flex-shrink-0 text-lg font-bold text-center text-white">View </p>
   </div> -->
 </div>
-<div class="w-[1546px] h-[350px] absolute left-[-1px] top-[79px] bg-[#d9d9d9]"></div>
-<div class="w-[1537px] h-20">
-  <div class="w-[1537px] h-20 absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
-  <div class="w-[752.49px] h-14">
-    <p class="w-[85.39px] absolute left-[397.06px] top-6 text-[22px] text-left text-white">
-      Account
-    </p>
-    <div class="w-[106.74px] h-[3px] absolute left-[385.88px] top-[76.5px] bg-white"></div>
-    <p
-      class="w-[86.46px] absolute left-[591.32px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-    >
-      Reposts
-    </p>
-    <p
-      class="w-[85.39px] absolute left-[784.51px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-    >
-      Settings
-    </p>
-    <p
-      class="w-[162.24px] absolute left-[976.64px] top-6 text-[22px] font-light text-left text-[#a0a0a0]"
-    >
-      Help &#x26; Support
-    </p>
-  </div>
-  <div class="w-[53.37px] h-[25px]">
-    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[26.5px] bg-white"></div>
-    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[38.04px] bg-white"></div>
-    <div class="w-[53.37px] h-[1.92px] absolute left-[31.52px] top-[49.58px] bg-white"></div>
-  </div>
-</div>
+<div class="w-[1546px] h-[350px] absolute left-[-1px] top-[70px] bg-[#d9d9d9]"></div>
+<!-- 네비게이션 바 -->
+<div class="w-[1718px] h-[76px]">
+        <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
+        <div class="w-[841.1px] h-[53.2px]">
+          <div  onclick = "location.href='mainpage.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[443.82px] top-[22.8px] text-[22px] text-left text-[#a0a0a0]"
+          >
+            Main
+          </p>
+          </div>
+          <div onclick = "location.href='Mypage.php'">
+          <p
+            class="w-[96.64px] h-[28.5px] absolute left-[660.95px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+          Mypage
+          </p>
+          </div>
+          <div onclick = "location.href='bookmark.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[876.9px] top-[22.8px] text-[22px] font-light text-left text-white"
+          >
+          Bookmark
+          </p>
+          </div>
+
+          <div onclick = "location.href='Logout.php'">
+          <p
+            class="w-[181.34px] h-[28.5px] absolute left-[1091.65px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+           Logout
+          </p>
+          </div>
+        </div>
+      </div>
 <div class="w-[200px] h-[271px]">
   
   <p class="w-[142px] absolute left-[706px] top-[325px] text-5xl italic text-left text-black">

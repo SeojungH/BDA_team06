@@ -24,17 +24,53 @@
       />
       <link href="./css/Mypage.css" rel="stylesheet" />
       <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-      <script type="text/javascript">   
+      <!-- <script type="text/javascript">   
       $(document).ready( function() {
       $("#nav").load("html/nav.html");
-      });
+      }); -->
       </script>
+      <script src="https://cdn.tailwindcss.com"></script>
       <title>
         마이페이지
       </title>
     </head>
-    <div id="nav"></div>
+    <!-- <div id="nav"></div> -->
     <body>
+      <!-- 네비게이션 바 -->
+      <div class="w-[1718px] h-[76px]">
+        <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
+        <div class="w-[841.1px] h-[53.2px]">
+          <div  onclick = "location.href='mainpage.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[443.82px] top-[22.8px] text-[22px] text-left text-[#a0a0a0]"
+          >
+            Main
+          </p>
+          </div>
+          <div onclick = "location.href='Mypage.php'">
+          <p
+            class="w-[96.64px] h-[28.5px] absolute left-[660.95px] top-[22.8px] text-[22px] font-light text-left text-white"
+          >
+          Mypage
+          </p>
+          </div>
+          <div onclick = "location.href='bookmark.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[876.9px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+          Bookmark
+          </p>
+          </div>
+          <div onclick = "location.href='Logout.php'">
+          <p
+            class="w-[181.34px] h-[28.5px] absolute left-[1091.65px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+           Logout
+          </p>
+          </div>
+        </div>
+      </div>
+
       <div class = "profile-img-box">
         <div class = "profile-background-img"></div>
         <div class = "profile-circle-img-wrap">

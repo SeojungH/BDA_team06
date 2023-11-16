@@ -134,27 +134,30 @@
           </div>
         </div>
       </div>
+
+      <!-- 네비게이션 바 -->
       <div class="w-[1718px] h-[76px]">
         <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
         <div class="w-[841.1px] h-[53.2px]">
+          <div  onclick = "location.href='mainpage.php'">
           <p
             class="w-[95.44px] h-[28.5px] absolute left-[443.82px] top-[22.8px] text-[22px] text-left text-white"
           >
-            Account
+            Main
           </p>
-          <div
-            class="w-[119.31px] h-[2.85px] absolute left-[431.39px] top-[72.65px] bg-white"
-          ></div>
+          </div>
+          <div onclick = "location.href='Mypage.php'">
           <p
             class="w-[96.64px] h-[28.5px] absolute left-[660.95px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
           >
-            Reposts
+          Mypage
           </p>
-          <div onclick = "location.href='Mypage.php'">
+          </div>
+          <div onclick = "location.href='bookmark.php'">
           <p
             class="w-[95.44px] h-[28.5px] absolute left-[876.9px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
           >
-          Mypage
+          Bookmark
           </p>
           </div>
           <div onclick = "location.href='Logout.php'">
@@ -165,12 +168,9 @@
           </p>
           </div>
         </div>
-        <div class="w-[59.65px] h-[23.75px]">
-          <div class="w-[59.65px] h-[1.83px] absolute left-[35.29px] top-[25.15px] bg-white"></div>
-          <div class="w-[59.65px] h-[1.83px] absolute left-[35.29px] top-[36.11px] bg-white"></div>
-          <div class="w-[59.65px] h-[1.83px] absolute left-[35.29px] top-[47.07px] bg-white"></div>
-        </div>
       </div>
+
+
       <div
         class="flex flex-col justify-center items-center w-[1718px] absolute left-0 top-[765px] gap-[71px] py-20"
         style="background: linear-gradient(to bottom, rgba(255,206,103,0.5) -42.47%, rgba(253,237,202,0) 100%);"

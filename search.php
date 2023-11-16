@@ -25,21 +25,40 @@
   </head>
   <body>
     <div class="w-[1509px] h-[1452px] relative bg-white">
-      <!--네비게이션 바-->
-      <div class="w-[1509px] h-[83.83px]">
-        <div class="w-[1509px] h-[83.83px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
-        <div class="w-[738.78px] h-[58.68px]">
-          <p class="w-[83.83px] h-[31.44px] absolute left-[389.82px] top-[25.15px] text-[22px] text-left text-white">Account</p>
-          <div class="w-[104.79px] h-[3.14px] absolute left-[378.85px] top-[80.19px] bg-white"></div>
-          <p class="w-[84.88px] h-[31.44px] absolute left-[580.55px] top-[25.15px] text-[22px] font-light text-left text-[#a0a0a0]">Reposts</p>
-          <p class="w-[83.83px] h-[31.44px] absolute left-[770.22px] top-[25.15px] text-[22px] font-light text-left text-[#a0a0a0]">Settings</p>
-          <p class="w-[159.28px] h-[31.44px] absolute left-[958.84px] top-[25.15px] text-[22px] font-light text-left text-[#a0a0a0]">Help &#x26; Support</p>
+      <!-- 네비게이션 바 -->
+      <div class="w-[1718px] h-[76px]">
+        <div class="w-[1718px] h-[76px] absolute left-[-0.5px] top-[-0.5px] bg-[#ffd233]"></div>
+        <div class="w-[841.1px] h-[53.2px]">
+          <div  onclick = "location.href='mainpage.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[443.82px] top-[22.8px] text-[22px] text-left text-[#a0a0a0]"
+          >
+            Main
+          </p>
+          </div>
+          <div onclick = "location.href='Mypage.php'">
+          <p
+            class="w-[96.64px] h-[28.5px] absolute left-[660.95px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+          Mypage
+          </p>
+          </div>
+          <div onclick = "location.href='bookmark.php'">
+          <p
+            class="w-[95.44px] h-[28.5px] absolute left-[876.9px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+          Bookmark
+          </p>
+          </div>
+          <div onclick = "location.href='Logout.php'">
+          <p
+            class="w-[181.34px] h-[28.5px] absolute left-[1091.65px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
+          >
+           Logout
+          </p>
+          </div>
         </div>
-        <div class="w-[52.4px] h-[26.2px]">
-          <div class="w-[52.4px] h-[2.02px] absolute left-[30.94px] top-[27.79px] bg-white"></div>
-          <div class="w-[52.4px] h-[2.02px] absolute left-[30.94px] top-[39.89px] bg-white"></div>
-          <div class="w-[52.4px] h-[2.02px] absolute left-[30.94px] top-[51.98px] bg-white"></div>
-        </div>
+      </div>
       </div>
     
       <!--검색 필터, 정렬 드롭다운-->
