@@ -155,11 +155,13 @@
           Mypage
           </p>
           </div>
+          <div onclick = "location.href='Logout.php'">
           <p
             class="w-[181.34px] h-[28.5px] absolute left-[1091.65px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
           >
-            Help &#x26; Support
+           Logout
           </p>
+          </div>
         </div>
         <div class="w-[59.65px] h-[23.75px]">
           <div class="w-[59.65px] h-[1.83px] absolute left-[35.29px] top-[25.15px] bg-white"></div>
