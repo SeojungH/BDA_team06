@@ -1,3 +1,5 @@
+<!-- 1976333 임채민 -->
+
 <?php
 // 데이터베이스 연결
 $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
@@ -24,19 +26,18 @@ if(mysqli_multi_query($mysqli, $sql)){
     }
 }
 
+//알러지 갯수를 받아옴 N개
+// 이걸로 반복하면서 i가 체크된 폼 알러지넘버 (예:1,2,3) 배열에 들어있으면 -> 1
+// 안들어있으면 0
+
+// 0인건 딜리트
+// 1인건 추가
+
 //알러지 체크박스 폼 정보
 for ($i=0; $i<count($_POST['allergy_form']); $i++) {
     $allergy = $_POST['allergy_form'];
     $allergy_num = $allergy[$i];
 
-    // // 이미 등록되어있으면 패스
-    // $sql = "SELECT * FROM user_allergy WHERE User_ID = '".$User_ID."' AND Allergy_ID ='".$allergy_num."'";
-    // $result = mysqli_query($mysqli, $sql);
-    // $row = mysqli_fetch_row($result);
-    // if(in_array($allergy_num, $row)) {
-    //     echo $allergy_num;
-    //     continue;
-    // }
     $sql = "
     INSERT IGNORE INTO user_allergy (Allergy_ID, user_ID) VALUES ('".$allergy_num."','".$User_ID."')
     ";

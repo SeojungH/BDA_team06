@@ -1,3 +1,5 @@
+<!-- 1976333 임채민 -->
+
 <!-- 데이터베이스 연결 -->
 <?php
     $mysqli = mysqli_connect("localhost", "team06", "team06", "team06");
