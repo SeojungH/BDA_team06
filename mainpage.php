@@ -148,11 +148,13 @@
           >
             Reposts
           </p>
+          <div onclick = "location.href='Mypage.php'">
           <p
             class="w-[95.44px] h-[28.5px] absolute left-[876.9px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
           >
-          <div onclick = "location.href='Mypage.php'">Mypage</div>
+          Mypage
           </p>
+          </div>
           <p
             class="w-[181.34px] h-[28.5px] absolute left-[1091.65px] top-[22.8px] text-[22px] font-light text-left text-[#a0a0a0]"
           >
