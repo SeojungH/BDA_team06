@@ -1,5 +1,3 @@
-<!-- 1976180 백승민 -->
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -192,7 +190,7 @@
   </div>
 </div>
 <div class="w-[200px] h-[271px]">
-  <img class="absolute left-[679.5px] top-[108.5px]" src="./img/ellipse-1.png" />
+  
   <p class="w-[142px] absolute left-[706px] top-[325px] text-5xl italic text-left text-black">
       <?php echo $user_name; ?>
   </p>
