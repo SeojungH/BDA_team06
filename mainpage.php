@@ -236,14 +236,16 @@
             $Category_ID = 1;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
+            $sql = "SELECT avg_menu_price AS avg_price
+                  FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                        COALESCE(r.Res_ID, 'AVG') as AVG,
+                        ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
                         FROM Restaurant r
                         INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+                        GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                        HAVING AVG = 'AVG') as A
+                    WHERE A.Category_ID = $Category_ID
+                  ";
 
             $result = $conn->query($sql);
 
@@ -252,8 +254,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
@@ -298,14 +298,16 @@
             $Category_ID = 2;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
+            $sql = "SELECT avg_menu_price AS avg_price
+                  FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                        COALESCE(r.Res_ID, 'AVG') as AVG,
+                        ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
                         FROM Restaurant r
                         INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+                        GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                        HAVING AVG = 'AVG') as A
+                    WHERE A.Category_ID = $Category_ID
+                  ";
 
             $result = $conn->query($sql);
 
@@ -314,8 +316,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
@@ -360,14 +360,16 @@
             $Category_ID = 3;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
+            $sql = "SELECT avg_menu_price AS avg_price
+                  FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                        COALESCE(r.Res_ID, 'AVG') as AVG,
+                        ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
                         FROM Restaurant r
                         INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+                        GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                        HAVING AVG = 'AVG') as A
+                    WHERE A.Category_ID = $Category_ID
+                  ";
 
             $result = $conn->query($sql);
 
@@ -376,8 +378,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
@@ -422,14 +422,16 @@
             $Category_ID = 4;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
+            $sql = "SELECT avg_menu_price AS avg_price
+                  FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                        COALESCE(r.Res_ID, 'AVG') as AVG,
+                        ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
                         FROM Restaurant r
                         INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+                        GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                        HAVING AVG = 'AVG') as A
+                    WHERE A.Category_ID = $Category_ID
+                  ";
 
             $result = $conn->query($sql);
 
@@ -438,8 +440,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
@@ -484,14 +484,16 @@
             $Category_ID = 5;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
-                        FROM Restaurant r
-                        INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+            $sql = "SELECT avg_menu_price AS avg_price
+                    FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                          COALESCE(r.Res_ID, 'AVG') as AVG,
+                          ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
+                          FROM Restaurant r
+                          INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
+                          GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                          HAVING AVG = 'AVG') as A
+                      WHERE A.Category_ID = $Category_ID
+                    ";
 
             $result = $conn->query($sql);
 
@@ -500,8 +502,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
@@ -546,14 +546,16 @@
             $Category_ID = 6;
 
             // ROLLUP을 사용하여 'restaurant'의 카테고리 별 음식 가격의 총합과 평균을 계산
-            $sql = "SELECT c.Category_name, 
-                            SUM(m.Res_menu_price) AS total_price,
-                            ROUND(AVG(m.Res_menu_price)) AS avg_price
+            $sql = "SELECT avg_menu_price AS avg_price
+                  FROM(SELECT COALESCE(r.Category_ID, 'Category_AVG') as Category_ID,
+                        COALESCE(r.Res_ID, 'AVG') as AVG,
+                        ROUND(AVG(m.Res_menu_price)) AS avg_menu_price
                         FROM Restaurant r
                         INNER JOIN Res_menu m ON r.Res_ID = m.Res_ID
-                        INNER JOIN Category c ON r.Category_ID = c.Category_ID
-                        WHERE r.Category_ID = $Category_ID
-                        GROUP BY c.Category_name WITH ROLLUP";
+                        GROUP BY r.Category_ID, r.Res_ID WITH ROLLUP
+                        HAVING AVG = 'AVG') as A
+                    WHERE A.Category_ID = $Category_ID
+                  ";
 
             $result = $conn->query($sql);
 
@@ -562,8 +564,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     // 결과 출력
-                    $category = $row["Category_name"];
-                    $totalPrice = $row["total_price"];
                     $avgPrice = $row["avg_price"];
 
                     if ($avgPrice !== null && !$avgPrinted) {
